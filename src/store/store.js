@@ -1,8 +1,20 @@
+import { persistReducer, persistStore } from 'redux-persist';
 import { createStore, applyMiddleware } from 'redux';
 import createSagaMiddleware from 'redux-saga';
 
+import AsyncStorage from '@react-native-community/async-storage';
+
+import { cachedProfilesNamespace } from './cachedProfiles/ducks';
+import { chatListNamespace } from './chatList/ducks';
+import { threadNamespace } from './thread/ducks';
 import createReducer from './reducers';
 import rootSaga from './sagas';
+
+const persistConfig = {
+  key: 'reduxState',
+  whitelist: [cachedProfilesNamespace, chatListNamespace, threadNamespace],
+  storage: AsyncStorage,
+};
 
 const sagaMiddleware = createSagaMiddleware({});
 
@@ -11,11 +23,15 @@ export const storeFuncs = {
 };
 
 export default function configureStore(initialState) {
+  const rootReducer = createReducer();
+  const persistedReducer = persistReducer(persistConfig, rootReducer);
   const store = createStore(
-    createReducer(),
+    persistedReducer,
     initialState,
     applyMiddleware(sagaMiddleware),
   );
+
+  const persistor = persistStore(store);
 
   sagaMiddleware.run(rootSaga);
 
@@ -32,5 +48,5 @@ export default function configureStore(initialState) {
     });
   }
   storeFuncs.dispatch = store.dispatch;
-  return store;
+  return { store, persistor };
 }

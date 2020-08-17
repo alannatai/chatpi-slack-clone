@@ -6,7 +6,7 @@ import {
   createSelectorsAndState,
 } from '../../utils/reduxHelpers';
 
-const cachedProfilesNamespace = 'cachedProfiles';
+export const cachedProfilesNamespace = 'cachedProfiles';
 
 const constArr = [
   'ADD_PROFILE',

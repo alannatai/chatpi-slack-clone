@@ -2,6 +2,7 @@ import { AppLoading } from 'expo';
 import { Provider } from 'react-redux';
 import { withAuthenticator } from 'aws-amplify-react-native';
 import React from 'react';
+import { PersistGate } from 'redux-persist/integration/react';
 
 import apiService from 'services/api/apiService';
 import awsService from 'services/aws/awsService';
@@ -14,7 +15,7 @@ import { func } from 'constants';
 
 awsService.init();
 apiService.init();
-const store = getStore();
+const { store, persistor } = getStore();
 
 class App extends React.Component {
   constructor(props) {
@@ -48,17 +49,19 @@ class App extends React.Component {
 
     return (
       <Provider store={store}>
-        <Locale />
-        <MainStack
-          screenProps={{
-            drawerIsOpened: false,
-            handleRightDrawer: this.handleRightDrawer,
-          }}
-        />
-        <DrawerRight
-          handleRightDrawer={this.handleRightDrawer}
-          show={drawerRightIsOpened}
-        />
+        <PersistGate loading={null} persistor={persistor}>
+          <Locale />
+          <MainStack
+            screenProps={{
+              drawerIsOpened: false,
+              handleRightDrawer: this.handleRightDrawer,
+            }}
+          />
+          <DrawerRight
+            handleRightDrawer={this.handleRightDrawer}
+            show={drawerRightIsOpened}
+          />
+        </PersistGate>
       </Provider>
     );
   }

@@ -12,6 +12,7 @@ function* getChats() {
     {
       call: apiService.chat.get,
       *onSuccess(response) {
+        console.log(response);
         yield put(
           chatListActions.receiveChats({
             chats: response.chats,

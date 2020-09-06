@@ -7,7 +7,6 @@ import { threadActions, threadSelectors } from '../store/thread/ducks';
 import AccessoryBar from '../components/AccessoryBar';
 
 function ChatScreen({ messages, sendMessage }) {
-  console.log(messages);
   return (
     <GiftedChat
       alwaysShowSend

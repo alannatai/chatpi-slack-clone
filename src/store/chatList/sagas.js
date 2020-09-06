@@ -7,7 +7,6 @@ import apiService, { apiCall } from '../../services/api/apiService';
  * Get all chats to display
  */
 function* getChats() {
-  console.log('hi');
   yield apiCall(
     {
       call: apiService.chat.get,

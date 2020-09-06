@@ -21,6 +21,7 @@ function errorHandler(responseData) {
 export function* apiCall({ call, onSuccess }, ...args) {
   try {
     const response = yield call(...args);
+    console.log(response);
     yield onSuccess(response);
   } catch (e) {
     yield put(

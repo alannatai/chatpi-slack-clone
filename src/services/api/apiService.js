@@ -21,8 +21,7 @@ function errorHandler(responseData) {
 export function* apiCall({ call, onSuccess }, ...args) {
   try {
     const response = yield call(...args);
-    console.log(response);
-    yield onSuccess(response);
+    yield onSuccess(response.data);
   } catch (e) {
     yield put(
       errorActions.setError({
@@ -51,10 +50,10 @@ const apiService = {
       process.env.REACT_APP_VERSION;
 
     this.core = this.createInstance({
-      baseUrl: envService.getConfig().coreApiUrl,
+      baseURL: envService.getConfig().coreApiUrl,
     });
     this.chat = this.createInstance({
-      baseUrl: envService.getConfig().chatApiUrl,
+      baseURL: envService.getConfig().chatApiUrl,
     });
   },
   createInstance(axiosConfig, usesSnake) {

@@ -1,13 +1,13 @@
 import { put, fork } from 'redux-saga/effects';
 
+import { chatListActions } from './ducks';
 import apiService, { apiCall } from '../../services/api/apiService';
-import { watchActionsLatest } from '../../utils/watchActions';
-import { chatListConstants, chatListActions } from './ducks';
 
 /**
  * Get all chats to display
  */
 function* getChats() {
+  console.log('hi');
   yield apiCall(
     {
       call: apiService.chat.get,
@@ -25,5 +25,5 @@ function* getChats() {
 }
 
 export default function* chatListSaga() {
-  yield fork(watchActionsLatest, [[chatListConstants.GET_CHATS, getChats]]);
+  yield fork(getChats);
 }

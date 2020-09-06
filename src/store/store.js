@@ -34,7 +34,6 @@ export default function configureStore(initialState) {
   const persistor = persistStore(store);
 
   sagaMiddleware.run(rootSaga);
-
   store.runSaga = sagaMiddleware.run;
   store.asyncReducers = {};
   if (module.hot) {

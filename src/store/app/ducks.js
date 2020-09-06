@@ -1,5 +1,6 @@
-import { path } from 'ramda';
+import produce from 'immer';
 
+import amplifyAuthState from '../../constants/amplifyAuthState';
 import {
   createConstantsAndActions,
   createSelectorsAndState,
@@ -7,30 +8,41 @@ import {
 
 export const appNamespace = 'app';
 
-const constArr = ['SET_EXAMPLE'];
+const constArr = ['SIGNED_IN', 'SIGNED_OUT'];
 
 export const {
   constants: appConstants,
   actions: appActions,
 } = createConstantsAndActions(appNamespace, constArr);
 
+export const authStateToActionDict = {
+  [amplifyAuthState.SignedIn]: appActions.signedIn,
+  [amplifyAuthState.SignedOut]: appActions.signedOut,
+};
+
 const { initialState, selectors } = createSelectorsAndState(appNamespace, {
-  example: false,
+  signedIn: false,
 });
 
 export const appSelectors = {
   ...selectors,
-  example: path([appNamespace, 'example']),
 };
 
 const c = appConstants;
 
-export default function appReducer(state = initialState, action) {
+const appReducer = produce((state = initialState, action) => {
   switch (action.type) {
-    case c.SET_EXAMPLE: {
-      return { ...state };
+    case c.SIGNED_IN: {
+      state.signedIn = true;
+      return state;
+    }
+    case c.SIGNED_OUT: {
+      state.signedOut = true;
+      return state;
     }
     default:
       return state;
   }
-}
+});
+
+export default appReducer;

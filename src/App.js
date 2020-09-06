@@ -1,17 +1,19 @@
+import React from 'react';
 import { AppLoading } from 'expo';
 import { Provider } from 'react-redux';
 import { withAuthenticator } from 'aws-amplify-react-native';
-import React from 'react';
 import { PersistGate } from 'redux-persist/integration/react';
 
-import apiService from 'services/api/apiService';
-import awsService from 'services/aws/awsService';
-import getStore from 'store/store';
-import AmplifyTheme from 'constants/AmplifyTheme';
-import MainStack from 'navigation/MainStack';
-import DrawerRight from 'components/DrawerRight';
-import Locale from 'containers/Locale';
 import { func } from 'constants';
+
+import { authStateToActionDict } from './store/app/ducks';
+import MainStack from './navigation/MainStack';
+import DrawerRight from './components/DrawerRight';
+import Locale from './containers/Locale';
+import apiService from './services/api/apiService';
+import awsService from './services/aws/awsService';
+import getStore from './store/store';
+import AmplifyTheme from './constants/AmplifyTheme';
 
 awsService.init();
 apiService.init();
@@ -70,4 +72,9 @@ class App extends React.Component {
 export default withAuthenticator(App, {
   includeGreetings: false,
   theme: { myTheme: AmplifyTheme },
+  handleAuthStateChange: (authState) => {
+    if (authStateToActionDict[authState]) {
+      store.dispatch(authStateToActionDict[authState]);
+    }
+  },
 });

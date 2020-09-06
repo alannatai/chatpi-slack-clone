@@ -23,6 +23,7 @@
   },
   "dependencies": {
     "@knotfive/chatpi-client-js": "^0.0.11",
+    "@react-native-community/async-storage": "^1.12.0",
     "@react-native-community/netinfo": "5.9.2",
     "@storybook/react-native": "^5.3.19",
     "aws-amplify": "^3.0.20",

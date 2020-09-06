@@ -66,7 +66,7 @@ function* startChannel() {
       .receive('error', ({ reason }) => emitter({ ok: false, reason }))
       .receive(
         'timeout',
-        () => console.log('Networking issue. Still waiting...'), //eslint-disable-line
+        () => console.warn('Networking issue. Still waiting...'), //eslint-disable-line
       );
 
     return () => channel.leave();

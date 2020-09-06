@@ -29,7 +29,7 @@ export default function* rootSaga() {
             yield call(saga);
             break;
           } catch (e) {
-            console.error(e);
+            console.warn(e);
             i += 1;
           }
           yield delay(200);

@@ -35,7 +35,7 @@ const initialMessages = [
     user: {
       _id: 1,
       avatar: images.profile,
-      name: 'Caleb Nance',
+      name: 'Tester Test',
     },
   },
 ];

@@ -1,12 +1,16 @@
+import PropTypes from 'prop-types';
+import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
-import React from 'react';
 import { GiftedChat } from 'react-native-gifted-chat';
 
+import { baseSelectors } from '../store/base/ducks';
 import Message from '../components/Message';
 import { threadActions, threadSelectors } from '../store/thread/ducks';
 import AccessoryBar from '../components/AccessoryBar';
 
-function ChatScreen({ messages, sendMessage }) {
+function ChatScreen({ chatId, messages, sendMessage, getChatForBase }) {
+  useEffect(() => getChatForBase({ chatId }), [chatId, getChatForBase]);
+
   return (
     <GiftedChat
       alwaysShowSend
@@ -20,8 +24,16 @@ function ChatScreen({ messages, sendMessage }) {
   );
 }
 
+ChatScreen.propTypes = {
+  getChatForBase: PropTypes.func,
+  sendMessage: PropTypes.func,
+  messages: PropTypes.array,
+  chatId: PropTypes.string,
+};
+
 const mapStateToProps = (state) => ({
   messages: threadSelectors.messages(state),
+  chatId: baseSelectors.currentChatId(state),
 });
 
 const mapDispatchToProps = {

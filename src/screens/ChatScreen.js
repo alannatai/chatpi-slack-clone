@@ -3,13 +3,16 @@ import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { GiftedChat } from 'react-native-gifted-chat';
 
-import { baseSelectors } from '../store/base/ducks';
+import { MessagePropType } from '../utils/types';
+import { baseActions, baseSelectors } from '../store/base/ducks';
 import Message from '../components/Message';
 import { threadActions, threadSelectors } from '../store/thread/ducks';
 import AccessoryBar from '../components/AccessoryBar';
 
 function ChatScreen({ chatId, messages, sendMessage, getChatForBase }) {
-  useEffect(() => getChatForBase({ chatId }), [chatId, getChatForBase]);
+  useEffect(() => {
+    getChatForBase({ chatId });
+  }, [chatId, getChatForBase]);
 
   return (
     <GiftedChat
@@ -27,7 +30,7 @@ function ChatScreen({ chatId, messages, sendMessage, getChatForBase }) {
 ChatScreen.propTypes = {
   getChatForBase: PropTypes.func,
   sendMessage: PropTypes.func,
-  messages: PropTypes.array,
+  messages: PropTypes.arrayOf(MessagePropType),
   chatId: PropTypes.string,
 };
 
@@ -38,6 +41,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = {
   sendMessage: threadActions.sendMessage,
+  getChatForBase: baseActions.getChatForBase,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(ChatScreen);

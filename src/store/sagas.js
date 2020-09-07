@@ -51,7 +51,7 @@ export default function* rootSaga() {
         yield cancel(signedInTasks);
       }
     } catch (e) {
-      console.error(e);
+      console.warn(e);
     }
   });
 }

@@ -3,7 +3,7 @@ import { take, all, fork, cancel, retry } from 'redux-saga/effects';
 
 import { appConstants } from './app/ducks';
 import threadSaga from './thread/sagas';
-import chatListSaga from './chatList/sagas';
+import baseSaga from './base/sagas';
 
 const MAX_TRIES = 3;
 const RETRY_DELAY = 200;
@@ -15,7 +15,7 @@ const defaultSagas = [threadSaga];
 
 const signedInSagas = [
   // ---plop_append_saga---
-  chatListSaga,
+  baseSaga,
   // appSaga,
   // pushTokenSaga,
   // creditConsentSaga,

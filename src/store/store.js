@@ -5,14 +5,14 @@ import createSagaMiddleware from 'redux-saga';
 import AsyncStorage from '@react-native-community/async-storage';
 
 import { cachedProfilesNamespace } from './cachedProfiles/ducks';
-import { chatListNamespace } from './chatList/ducks';
+import { baseNamespace } from './base/ducks';
 import { threadNamespace } from './thread/ducks';
 import createReducer from './reducers';
 import rootSaga from './sagas';
 
 const persistConfig = {
   key: 'reduxState',
-  whitelist: [cachedProfilesNamespace, chatListNamespace, threadNamespace],
+  whitelist: [cachedProfilesNamespace, baseNamespace, threadNamespace],
   storage: AsyncStorage,
 };
 

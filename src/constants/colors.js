@@ -21,5 +21,8 @@ export default {
   greyLine: '#c6c6c6',
   greyTime: '#868686',
   purple: '#3f0e40',
-  slackBlack: '#1d1c1d'
+  slackBlack: '#1d1c1d',
+
+  success: '#2eb67d',
+  error: '#e01e5a',
 };

@@ -22,7 +22,6 @@ function errorHandler(responseData) {
 export function* apiCall({ call, onSuccess }, ...args) {
   try {
     const response = yield call(...args);
-    console.log(response);
     if (response.status !== 200) {
       throw new ApiException(response.status, response?.data?.error);
     }

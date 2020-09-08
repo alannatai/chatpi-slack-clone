@@ -28,6 +28,8 @@ export const { initialState, selectors } = createSelectorsAndState(
     currentBaseId: '',
     bases: [],
     chats: {},
+    userEntities: {},
+    chatEntities: {},
     messages: {},
     messageEntities: {},
     baseEntities: {},
@@ -55,12 +57,16 @@ const baseReducer = produce((state = initialState, action) => {
       return state;
     }
     case c.RECEIVE_BASES: {
-      const dbObj = normalize(action.payload.bases, [base]);
-      console.log(dbObj);
-      state.baseEntities = dbObj.entities;
-      state.bases = dbObj.result;
+      const obj = normalize(action.payload.bases, [base]);
+      state.baseEntities = obj.entities.bases;
+      state.bases = obj.result;
+      state.userEntities = obj.entities.users;
+      state.chatEntities = obj.entities.chats;
       state.hasLoaded = true;
-      console.log('state', state);
+      if (!state.currentBaseId) {
+        const [currentBaseId] = state.bases;
+        state.currentBaseId = currentBaseId;
+      }
       return state;
     }
     case c.MARK_SEEN:

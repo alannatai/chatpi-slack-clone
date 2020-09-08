@@ -28,26 +28,13 @@ const c = alertConstants;
 
 const mapError = (payload) => {
   switch (true) {
-    case payload?.status === 409:
+    case payload?.status === 401:
       return {
-        k: 'email_already_taken',
-      };
-    case payload?.error === 'not_signed_in':
-      return {
-        k: 'not_signed_in',
-      };
-    case payload.error === 'generic_error_00':
-      return {
-        k: 'generic_error_00',
+        message: 'Signed out, please sign in again',
       };
     case !!payload?.error.message === 'Networking issue':
-      return {
-        k: 'api_error',
-        message: "Sorry, it seems like we're having some issues right now",
-      };
     default:
       return {
-        k: 'generic_error_00',
         message: "Sorry, it seems like we're having some issues right now",
       };
   }

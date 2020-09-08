@@ -1,11 +1,12 @@
-import React from 'react';
 import { AppLoading } from 'expo';
+import React from 'react';
 import { Provider } from 'react-redux';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { withAuthenticator } from 'aws-amplify-react-native';
 import { PersistGate } from 'redux-persist/integration/react';
 
-import { func } from 'constants';
-
+import { func } from './constants';
+import AlertToast from './components/AlertToast';
 import { authStateToActionDict } from './store/app/ducks';
 import MainStack from './navigation/MainStack';
 import DrawerRight from './components/DrawerRight';
@@ -50,21 +51,24 @@ class App extends React.Component {
     }
 
     return (
-      <Provider store={store}>
-        <PersistGate loading={null} persistor={persistor}>
-          <Locale />
-          <MainStack
-            screenProps={{
-              drawerIsOpened: false,
-              handleRightDrawer: this.handleRightDrawer,
-            }}
-          />
-          <DrawerRight
-            handleRightDrawer={this.handleRightDrawer}
-            show={drawerRightIsOpened}
-          />
-        </PersistGate>
-      </Provider>
+      <SafeAreaProvider>
+        <Provider store={store}>
+          <PersistGate loading={null} persistor={persistor}>
+            <Locale />
+            <MainStack
+              screenProps={{
+                drawerIsOpened: false,
+                handleRightDrawer: this.handleRightDrawer,
+              }}
+            />
+            <DrawerRight
+              handleRightDrawer={this.handleRightDrawer}
+              show={drawerRightIsOpened}
+            />
+            <AlertToast />
+          </PersistGate>
+        </Provider>
+      </SafeAreaProvider>
     );
   }
 }

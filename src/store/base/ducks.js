@@ -1,10 +1,11 @@
+import { normalize } from 'normalizr';
 import produce from 'immer';
 
+import { base, normalizeAndUpdate } from '../../utils/schema';
 import {
   createConstantsAndActions,
   createSelectorsAndState,
 } from '../../utils/reduxHelpers';
-import { normalizeBase } from '../../utils/schema';
 
 export const baseNamespace = 'base';
 
@@ -49,17 +50,17 @@ const baseReducer = produce((state = initialState, action) => {
       return state;
     }
     case c.RECEIVE_MESSAGES: {
-      const dbObj = normalizeBase(action.payload.messages);
-      state.messageEntities[action.payload.chatId] = dbObj.entities;
-      state.messages[action.payload.chatId] = dbObj.result;
+      normalizeAndUpdate(state, 'messages')(action.payload.messages);
       state.hasLoaded = true;
       return state;
     }
     case c.RECEIVE_BASES: {
-      const dbObj = normalizeBase(action.payload.bases);
+      const dbObj = normalize(action.payload.bases, [base]);
+      console.log(dbObj);
       state.baseEntities = dbObj.entities;
       state.bases = dbObj.result;
       state.hasLoaded = true;
+      console.log('state', state);
       return state;
     }
     case c.MARK_SEEN:

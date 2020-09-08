@@ -11,7 +11,7 @@ import apiService, { apiCall } from '../../services/api/apiService';
 function* getBases() {
   yield apiCall(
     {
-      call: apiService.chat.get,
+      call: apiService.core.get,
       *onSuccess(response) {
         console.log(response);
         yield put(
@@ -21,7 +21,7 @@ function* getBases() {
         );
       },
     },
-    '/v1/chats',
+    '/v1/base/',
   );
 }
 
@@ -29,7 +29,7 @@ function* getMessagesForBase() {
   const chatId = yield select(baseSelectors.currentChatId);
   yield apiCall(
     {
-      call: apiService.core.get,
+      call: apiService.chat.get,
       *onSuccess(response) {
         console.log(response);
         yield put(
@@ -60,13 +60,18 @@ function* getChatForBase() {
   );
 }
 
-function* getAllChatDetails() {
+function* getCurrentChatDetails() {
   yield all([getChatForBase, getMessagesForBase]);
 }
 
+function* init() {
+  yield getBases();
+  yield getCurrentChatDetails();
+}
+
 export default function* basesSaga() {
-  yield fork(getBases);
+  yield init();
   yield fork(watchActionsLatest, [
-    [baseConstants.GET_CHAT_FOR_BASE, getAllChatDetails],
+    [baseConstants.GET_CHAT_FOR_BASE, getCurrentChatDetails],
   ]);
 }

@@ -3,6 +3,7 @@ import { delay, put } from 'redux-saga/effects';
 import axios from 'axios';
 import { Auth } from 'aws-amplify';
 
+import { ApiException } from '../../utils/exceptions';
 import { errorActions } from '../../store/error/ducks';
 import envService from '../env/envService';
 import modifyKeys from '../../utils/modifyKeys';
@@ -21,7 +22,12 @@ function errorHandler(responseData) {
 export function* apiCall({ call, onSuccess }, ...args) {
   try {
     const response = yield call(...args);
-    yield onSuccess(response.data);
+    console.log(response);
+    if (response.status !== 200) {
+      throw new ApiException(response.status, response?.data?.error);
+    }
+
+    throw yield onSuccess(response.data);
   } catch (e) {
     yield put(
       errorActions.setError({

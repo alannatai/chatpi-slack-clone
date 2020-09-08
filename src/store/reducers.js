@@ -1,5 +1,7 @@
 import { combineReducers } from 'redux';
 
+import alertReducer, { alertNamespace } from './alert/ducks';
+import errorReducer, { errorNamespace } from './error/ducks';
 import threadReducer, { threadNamespace } from './thread/ducks';
 
 // import appReducer, { appNamespace } from './app/ducks';
@@ -10,8 +12,8 @@ import threadReducer, { threadNamespace } from './thread/ducks';
 export default function createReducer(asyncReducers) {
   const combinedReducer = combineReducers({
     // [appNamespace]: appReducer,
-    // [alertNamespace]: alertReducer,
-    // [errorNamespace]: errorReducer,
+    [alertNamespace]: alertReducer,
+    [errorNamespace]: errorReducer,
     // ---plop_append_reducer---
     [threadNamespace]: threadReducer,
     // [appNamespace]: appReducer,

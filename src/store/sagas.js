@@ -39,7 +39,6 @@ export default function* rootSaga() {
           yield take(appConstants.SIGNED_IN);
         }
 
-        console.log('hi');
         const signedInTasks = yield fork(function* () {
           yield all(
             signedInSagas.map((saga) => retry(MAX_TRIES, RETRY_DELAY, saga)),

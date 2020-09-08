@@ -1,10 +1,17 @@
+import { connect } from 'react-redux';
 import { Text, View } from 'react-native';
 import Modal from 'react-native-modal';
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
+
+import { alertActions, alertSelectors } from '../store/alert/ducks';
+import CloseButton from './CloseButton';
+import colors from '../constants/colors';
 import globalStyles from '../constants/globalStyles';
-import alertsContent from '../constants/alertsContent';
+
+const ALERT_PADDING = 20;
 
 const style = {
   alertModalContainer: {
@@ -13,44 +20,57 @@ const style = {
   },
   alertContainer: {
     ...globalStyles.flexRowCenter,
-    padding: 25,
+    paddingVertical: ALERT_PADDING,
+    paddingLeft: ALERT_PADDING,
+    paddingRight: ALERT_PADDING - 10,
   },
   alertText: {
+    maxWidth: '90%',
+    marginRight: 15,
     ...globalStyles.textCiruBook12,
-    color: colors.white10,
+    color: colors.white,
   },
 };
+
 // TODO, should make this generic toast, not just alert modal, because it allows for success now
-export default function AlertModal(props) {
-  const parseAlert = () =>
-    props.alert.message || alertsContent(props.alert?.k, props.alert?.value);
+function AlertToast(props) {
+  const insets = useSafeAreaInsets();
   return (
     <Modal
       backdropOpacity={0.1}
       isVisible={!!props.alert?.k}
-      onBackdropPress={props.onClose}
+      onBackdropPress={props.clearAlerts}
       style={style.alertModalContainer}
-      onSwipeComplete={props.onClose}
+      onSwipeComplete={props.clearAlerts}
       swipeDirection={['down']}
     >
       <View
         style={[
           style.alertContainer,
           {
-            backgroundColor:
-              props.alert?.k === 'success' ? colors.success : colors.fail,
+            backgroundColor: colors[props.alert?.type] || colors.grey,
+            paddingBottom: ALERT_PADDING + insets.bottom - 10,
           },
         ]}
       >
-        <Text style={style.alertText}>
-          {props.alert?.k === 'success' ? props.alert.v : parseAlert()}
-        </Text>
+        <Text style={style.alertText}>{props.alert.message}</Text>
+        <CloseButton onPress={props.clearAlerts} />
       </View>
     </Modal>
   );
 }
 
-AlertModal.propTypes = {
-  onClose: PropTypes.func,
+AlertToast.propTypes = {
+  clearAlerts: PropTypes.func,
   alert: PropTypes.objectOf(PropTypes.string),
 };
+
+const mapStateToProps = (state) => ({
+  alert: alertSelectors.alert(state),
+});
+
+const mapDispatchToProps = {
+  clearAlerts: alertActions.clearAlerts,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(AlertToast);

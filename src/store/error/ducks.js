@@ -24,41 +24,10 @@ export const errorSelectors = {
 
 const c = errorConstants;
 
-const mapError = (payload) => {
-  switch (true) {
-    // error => { k: str, val: str }
-    case payload?.status === 409:
-      return {
-        k: 'email_already_taken',
-      };
-    case payload?.error === 'not_signed_in':
-      return {
-        k: 'not_signed_in',
-      };
-    case payload.error === 'generic_error_00':
-      return {
-        k: 'generic_error_00',
-      };
-    case !!payload?.message:
-      return {
-        k: 'api_error',
-        message: payload.message,
-      };
-    default:
-      return {
-        k: 'generic_error_00',
-      };
-  }
-};
-
 export default function errorReducer(state = initialState, action) {
   switch (action.type) {
-    // TODO should turn this into alert ducks
-    case c.SET_SUCCESS_MESSAGE: {
-      return assoc('error', { k: 'success', v: action.payload.value }, state);
-    }
     case c.SET_ERROR: {
-      return assoc('error', mapError(action.payload), state);
+      return assoc('error', action.payload, state);
     }
     case c.CLEAR_ERROR: {
       return initialState;

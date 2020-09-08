@@ -30,3 +30,5 @@ export const BasePropType = PropTypes.shape({
   members: PropTypes.arrayOf(PropTypes.string),
   chats: PropTypes.arrayOf(PropTypes.string),
 });
+
+export const NavigationPropType = PropTypes.object;

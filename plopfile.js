@@ -1,4 +1,4 @@
-module.exports = function(plop) {
+module.exports = function (plop) {
   plop.setGenerator('component', {
     description: 'component',
     prompts: [
@@ -28,18 +28,18 @@ module.exports = function(plop) {
       {
         type: 'input',
         name: 'name',
-        message: 'component name',
+        message: 'screen name',
       },
     ],
     actions: [
       {
         type: 'add',
-        path: 'src/screens/{{name}}/{{name}}.jsx',
+        path: 'src/screens/{{name}}Screen/{{name}}Screen.jsx',
         templateFile: 'plop-templates/screen.hbs',
       },
       {
         type: 'add',
-        path: 'src/screens/{{name}}/{{name}}Container.jsx',
+        path: 'src/screens/{{name}}/{{name}}.jsx',
         templateFile: 'plop-templates/screencontainer.hbs',
       },
     ],

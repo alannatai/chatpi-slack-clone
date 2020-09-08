@@ -2,10 +2,11 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { connect } from 'react-redux';
 
+import AlertToast from '../components/AlertToast';
 import { errorActions, errorSelectors } from '../store/error/ducks';
 
 function AlertContainer(props) {
-  return <AlertModal error={props.error} onClose={() => props.clearError()} />;
+  return <AlertToast error={props.error} onClose={() => props.clearError()} />;
 }
 
 AlertContainer.propTypes = {

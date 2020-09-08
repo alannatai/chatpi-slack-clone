@@ -32,7 +32,7 @@ const mapError = (payload) => {
       return {
         message: 'Signed out, please sign in again',
       };
-    case !!payload?.error.message === 'Networking issue':
+    case !!payload?.error?.message === 'Networking issue':
     default:
       return {
         message: "Sorry, it seems like we're having some issues right now",

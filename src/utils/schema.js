@@ -27,10 +27,18 @@ export const normalizeAndUpdate = (state, prefix) =>
 
 const userSchema = new schema.Entity('users', {}, { idAttribute: 'id' });
 
-const chatSchema = new schema.Entity('chats');
+const chatSchema = new schema.Entity(
+  'chats',
+  {},
+  { idAttribute: 'chatpiChatId' },
+);
 
 // Define your article
-export const base = new schema.Entity('articles', {
-  members: [userSchema],
-  chats: [chatSchema],
-});
+export const base = new schema.Entity(
+  'base',
+  {
+    members: [userSchema],
+    chats: [chatSchema],
+  },
+  { idAttribute: 'id' },
+);

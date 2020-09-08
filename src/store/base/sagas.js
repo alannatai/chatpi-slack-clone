@@ -13,10 +13,9 @@ function* getBases() {
     {
       call: apiService.core.get,
       *onSuccess(response) {
-        console.log(response);
         yield put(
           baseActions.receiveBases({
-            chats: response.chats,
+            bases: response.list,
           }),
         );
       },
@@ -31,7 +30,6 @@ function* getMessagesForBase() {
     {
       call: apiService.chat.get,
       *onSuccess(response) {
-        console.log(response);
         yield put(
           baseActions.receiveMessages({
             messages: response.messages,
@@ -48,7 +46,6 @@ function* getChatForBase() {
     {
       call: apiService.core.get,
       *onSuccess(response) {
-        console.log(response);
         yield put(
           baseActions.receiveChat({
             messages: response.messages,

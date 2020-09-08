@@ -79,6 +79,7 @@ export default withAuthenticator(App, {
   handleAuthStateChange: (authState) => {
     if (authStateToActionDict[authState]) {
       store.dispatch(authStateToActionDict[authState]);
+      // store.replaceReducer();
     }
   },
 });

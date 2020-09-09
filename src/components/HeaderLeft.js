@@ -1,6 +1,6 @@
+import { Keyboard, Text, TouchableOpacity, View } from 'react-native';
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Keyboard, TouchableOpacity, View } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 
 import { gStyle } from '../constants';

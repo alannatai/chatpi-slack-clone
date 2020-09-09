@@ -5,7 +5,6 @@ import TouchText from '../components/TouchText';
 import { gStyle } from '../constants';
 
 // components
-
 class NotificationsScreen extends React.Component {
   static navigationOptions = ({ navigation }) => ({
     headerLeft: (

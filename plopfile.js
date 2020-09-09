@@ -39,7 +39,7 @@ module.exports = function (plop) {
       },
       {
         type: 'add',
-        path: 'src/screens/{{name}}/{{name}}.jsx',
+        path: 'src/screens/{{name}}Screen/{{name}}.jsx',
         templateFile: 'plop-templates/screencontainer.hbs',
       },
     ],

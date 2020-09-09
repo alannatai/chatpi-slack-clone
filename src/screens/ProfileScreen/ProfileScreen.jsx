@@ -2,10 +2,10 @@ import { TouchableOpacity, View } from 'react-native';
 import PropTypes from 'prop-types';
 import React from 'react';
 
-const styles = {};
+const style = {};
 
-export default function {{name}}Screen(props) {
-  return (<View />);
+export default function ProfileScreen(props) {
+  return <View />;
 }
 
-{{name}}Screen.propTypes = {};
+ProfileScreen.propTypes = {};

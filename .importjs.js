@@ -5,6 +5,7 @@ module.exports = {
   useRelativePaths: true,
   namedExports: {
     '@storybook/react-native': ['storiesOf'],
+    '@react-navigation/native': ['useNavigation'],
     react: [
       'useState',
       'useEffect',

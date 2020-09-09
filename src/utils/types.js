@@ -31,4 +31,6 @@ export const BasePropType = PropTypes.shape({
   chats: PropTypes.arrayOf(PropTypes.string),
 });
 
-export const NavigationPropType = PropTypes.object;
+export const NavigationPropType = PropTypes.object; // eslint-ignore-line
+
+export const StylePropType = PropTypes.object; // eslint-ignore-line

@@ -1,7 +1,8 @@
-import PropTypes from 'prop-types';
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import PropTypes from 'prop-types';
 import React from 'react';
 
+import BaseBottomTabNavigatorLayout from '../../layouts/BaseBottomTabNavigatorLayout';
 import { device, gStyle } from '../../constants';
 import colors from '../../constants/colors';
 
@@ -16,7 +17,6 @@ const styles = StyleSheet.create({
   },
   slide: {
     alignItems: 'center',
-    backgroundColor: colors.black85,
     flex: 1,
     justifyContent: 'center',
   },
@@ -28,12 +28,14 @@ const styles = StyleSheet.create({
 
 export default function BaseScreen(props) {
   return (
-    <View style={styles.slide}>
-      <Text style={styles.text}>BaseScreen</Text>
-      <TouchableOpacity onPress={() => props.goToChat()}>
-        <Text>Hi</Text>
-      </TouchableOpacity>
-    </View>
+    <BaseBottomTabNavigatorLayout>
+      <View style={styles.slide}>
+        <Text style={styles.text}>BaseScreen</Text>
+        <TouchableOpacity onPress={() => props.goToChat()}>
+          <Text>Hi</Text>
+        </TouchableOpacity>
+      </View>
+    </BaseBottomTabNavigatorLayout>
   );
 }
 

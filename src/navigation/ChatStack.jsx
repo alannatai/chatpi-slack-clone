@@ -60,8 +60,12 @@ export default function ChatStack() {
       transitionConfig={ModalRoutes}
     >
       <Stack.Screen name="Chat" component={Chat} />
-      <Stack.Screen name="Notifications" component={Notifications} />
-      <Stack.Screen name="Base" component={BaseBottomNavigator} />
+      <Stack.Screen
+        name="Notifications"
+        title="Base"
+        component={Notifications}
+      />
+      <Stack.Screen name="Base" title="Base" component={BaseBottomNavigator} />
     </Stack.Navigator>
   );
 }

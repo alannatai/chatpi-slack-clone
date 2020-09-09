@@ -24,7 +24,7 @@ export default function BaseScreen(props) {
       <View style={styles.container}>
         <Text style={styles.text}>BaseScreen</Text>
         <TouchableOpacity onPress={() => props.goToChat()}>
-          <Text>Hi</Text>
+          <Text>Chats</Text>
         </TouchableOpacity>
       </View>
     </BaseBottomTabNavigatorLayout>

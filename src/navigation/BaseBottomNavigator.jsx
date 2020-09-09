@@ -1,8 +1,11 @@
+import { createDrawerNavigator } from '@react-navigation/drawer';
 import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
 import { Feather, AntDesign } from '@expo/vector-icons';
 
+import DrawerContent from '../components/DrawerContent';
+import device from '../constants/device';
 import DirectMessages from '../screens/DirectMessagesScreen/DirectMessages';
 import Profile from '../screens/ProfileScreen/Profile';
 import colors from '../constants/colors';
@@ -10,7 +13,7 @@ import Base from '../screens/BaseScreen/Base';
 
 const Tab = createBottomTabNavigator();
 
-export default function TabsNavigator() {
+function TabsNavigator() {
   return (
     <Tab.Navigator
       initialRouteName="Base"
@@ -59,5 +62,24 @@ export default function TabsNavigator() {
         }}
       />
     </Tab.Navigator>
+  );
+}
+
+const Drawer = createDrawerNavigator();
+
+export default function TabsNavigatorWithDrawer() {
+  return (
+    <Drawer.Navigator
+      drawerContent={DrawerContent}
+      drawerType="slide"
+      drawerWidth={device.width - 32}
+      initialRouteName="ChatStack"
+      overlayColor={colors.black50}
+      drawerStyle={{
+        width: '90%',
+      }}
+    >
+      <Drawer.Screen name="ChatStack" component={TabsNavigator} />
+    </Drawer.Navigator>
   );
 }

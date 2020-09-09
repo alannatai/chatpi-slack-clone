@@ -3,9 +3,9 @@ import { ActivityIndicator, Text, TouchableOpacity } from 'react-native';
 import PropTypes from 'prop-types';
 import React from 'react';
 
+import { SMALL_HIT_SLOP } from '../constants/HitSlops';
 import { StylePropType } from '../utils/types';
 import fonts from '../constants/fonts';
-import { SMALL_HIT_SLOP } from './HitSlops';
 
 const basicButtonStyle = {
   alignItems: 'center',

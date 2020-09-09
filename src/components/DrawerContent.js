@@ -45,7 +45,7 @@ class DrawerContent extends React.Component {
     const { state: navState } = navigation;
     const { index } = this.state;
 
-    if (index === 0 && navState.isDrawerOpen) {
+    if (index === 0 && navState?.isDrawerOpen) {
       this.setState({
         index: 1,
         shouldHide: false,
@@ -87,4 +87,6 @@ DrawerContent.propTypes = {
   navigation: PropTypes.object.isRequired,
 };
 
-export default DrawerContent;
+export default function (props) {
+  return <DrawerContent navigation={props.navigation} />;
+}

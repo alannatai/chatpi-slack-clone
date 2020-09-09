@@ -2,20 +2,12 @@ import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import PropTypes from 'prop-types';
 import React from 'react';
 
+import { gStyle } from '../../constants';
 import BaseBottomTabNavigatorLayout from '../../layouts/BaseBottomTabNavigatorLayout';
-import { device, gStyle } from '../../constants';
 import colors from '../../constants/colors';
 
 const styles = StyleSheet.create({
-  pagination: {
-    backgroundColor: colors.white10,
-    borderRadius: 12,
-    left: device.width / 2 - 26,
-    paddingVertical: 2,
-    bottom: device.iPhoneX ? 36 : 24,
-    width: 54,
-  },
-  slide: {
+  container: {
     alignItems: 'center',
     flex: 1,
     justifyContent: 'center',
@@ -29,7 +21,7 @@ const styles = StyleSheet.create({
 export default function BaseScreen(props) {
   return (
     <BaseBottomTabNavigatorLayout>
-      <View style={styles.slide}>
+      <View style={styles.container}>
         <Text style={styles.text}>BaseScreen</Text>
         <TouchableOpacity onPress={() => props.goToChat()}>
           <Text>Hi</Text>

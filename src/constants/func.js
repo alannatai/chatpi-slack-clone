@@ -3,8 +3,8 @@ import { Permissions } from 'expo';
 import { Asset } from 'expo-asset';
 import * as Font from 'expo-font';
 
-import preloadFonts from './preloadFonts';
-import preloadImages from './preloadImages';
+import preloadFonts from './fonts';
+import preloadImages from './images';
 
 // cache fonts
 // /////////////////////////////////////////////////////////////////////////////

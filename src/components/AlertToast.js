@@ -3,13 +3,12 @@ import { Text, View } from 'react-native';
 import Modal from 'react-native-modal';
 import React from 'react';
 import PropTypes from 'prop-types';
-
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
+import gStyle from '../constants/gStyle';
 import { alertActions, alertSelectors } from '../store/alert/ducks';
 import CloseButton from './CloseButton';
 import colors from '../constants/colors';
-import globalStyles from '../constants/globalStyles';
 
 const ALERT_PADDING = 20;
 
@@ -19,7 +18,7 @@ const style = {
     margin: 0,
   },
   alertContainer: {
-    ...globalStyles.flexRowCenter,
+    ...gStyle.flexRowCenter,
     paddingVertical: ALERT_PADDING,
     paddingLeft: ALERT_PADDING,
     paddingRight: ALERT_PADDING - 10,
@@ -27,7 +26,7 @@ const style = {
   alertText: {
     maxWidth: '90%',
     marginRight: 15,
-    ...globalStyles.textCiruBook12,
+    ...gStyle.textCiruBook12,
     color: colors.white,
   },
 };

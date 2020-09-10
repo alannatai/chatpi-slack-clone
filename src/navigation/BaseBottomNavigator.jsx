@@ -71,6 +71,7 @@ export default function TabsNavigatorWithDrawer() {
   return (
     <Drawer.Navigator
       drawerContent={DrawerContent}
+      edgeWidth={100}
       drawerType="slide"
       drawerWidth={device.width - 32}
       initialRouteName="ChatStack"

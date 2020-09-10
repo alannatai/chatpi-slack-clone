@@ -1,10 +1,10 @@
 import produce from 'immer';
 
+import images from '../../constants/images';
 import {
   createConstantsAndActions,
   createSelectorsAndState,
 } from '../../utils/reduxHelpers';
-import { images } from '../../constants';
 
 export const threadNamespace = 'thread';
 

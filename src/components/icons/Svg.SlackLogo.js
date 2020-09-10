@@ -1,7 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Svg, { Path } from 'react-native-svg';
-import { colors } from '../../constants';
+
+import colors from '../../constants/colors';
 
 const SvgSlackLogo = ({ size }) => (
   <Svg height={size} width={size} viewBox="0 0 270 270">
@@ -25,12 +26,12 @@ const SvgSlackLogo = ({ size }) => (
 );
 
 SvgSlackLogo.defaultProps = {
-  size: 54
+  size: 54,
 };
 
 SvgSlackLogo.propTypes = {
   // optional
-  size: PropTypes.number
+  size: PropTypes.number,
 };
 
 export default SvgSlackLogo;

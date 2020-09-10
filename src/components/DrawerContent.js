@@ -3,9 +3,9 @@ import PropTypes from 'prop-types';
 import { StyleSheet, Text, View } from 'react-native';
 import Swiper from 'react-native-swiper';
 
+import gStyle from '../constants/gStyle';
 import device from '../constants/device';
 import colors from '../constants/colors';
-import { gStyle } from '../constants';
 
 const styles = StyleSheet.create({
   pagination: {

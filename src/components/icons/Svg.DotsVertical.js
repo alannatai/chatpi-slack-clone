@@ -1,7 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Svg, { Path } from 'react-native-svg';
-import { colors } from '../../constants';
+
+import colors from '../../constants/colors';
 
 const SvgDotsVertical = ({ size }) => (
   <Svg height={size} width={size} viewBox="0 0 32 32">
@@ -13,12 +14,12 @@ const SvgDotsVertical = ({ size }) => (
 );
 
 SvgDotsVertical.defaultProps = {
-  size: 24
+  size: 24,
 };
 
 SvgDotsVertical.propTypes = {
   // optional
-  size: PropTypes.number
+  size: PropTypes.number,
 };
 
 export default SvgDotsVertical;

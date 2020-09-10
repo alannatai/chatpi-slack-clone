@@ -1,4 +1,4 @@
-import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
 import PropTypes from 'prop-types';
 import React from 'react';
 
@@ -23,14 +23,10 @@ export default function DirectMessagesScreen(props) {
     <BaseBottomTabNavigatorLayout>
       <View style={styles.container}>
         <Text style={styles.text}>DirectMessagesScreen</Text>
-        <TouchableOpacity onPress={() => props.goToChat()}>
-          <Text>Hi</Text>
-        </TouchableOpacity>
       </View>
     </BaseBottomTabNavigatorLayout>
   );
 }
 
 DirectMessagesScreen.propTypes = {
-  goToChat: PropTypes.func,
 };

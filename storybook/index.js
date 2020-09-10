@@ -1,5 +1,6 @@
 import { configure, getStorybookUI } from '@storybook/react-native';
-import { func } from '../src/constants/index';
+
+import func from '../src/constants/func';
 import { loadStories } from './storyLoader';
 
 // TODO this is not completely safe, but acceptable for now since

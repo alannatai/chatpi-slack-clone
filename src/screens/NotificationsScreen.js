@@ -1,8 +1,8 @@
 import React from 'react';
 import { Text, View } from 'react-native';
 
+import gStyle from '../constants/gStyle';
 import TouchText from '../components/TouchText';
-import { gStyle } from '../constants';
 
 // components
 class NotificationsScreen extends React.Component {

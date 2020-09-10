@@ -1,7 +1,7 @@
 import React from 'react';
 import { View } from 'react-native';
 
-import { gStyle } from '../constants';
+import gStyle from '../constants/gStyle';
 import SvgAt from './icons/Svg.At';
 import SvgPaperClip from './icons/Svg.PaperClip';
 import SvgImage from './icons/Svg.Image';

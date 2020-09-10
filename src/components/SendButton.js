@@ -2,7 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { StyleSheet, Text, View } from 'react-native';
 import { Send } from 'react-native-gifted-chat';
-import { colors, gStyle } from '../constants';
+
+import gStyle from '../constants/gStyle';
+import colors from '../constants/colors';
 
 const SendButton = (props) => {
   const { text } = props;

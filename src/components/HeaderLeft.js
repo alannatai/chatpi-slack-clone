@@ -1,9 +1,9 @@
-import { Keyboard, Text, TouchableOpacity, View } from 'react-native';
+import { Keyboard, TouchableOpacity, View } from 'react-native';
 import React from 'react';
 import PropTypes from 'prop-types';
 import { useNavigation } from '@react-navigation/native';
 
-import { gStyle } from '../constants';
+import gStyle from '../constants/gStyle';
 import SvgSlackLogo from './icons/Svg.SlackLogo';
 
 function HeaderLeft() {

@@ -1,12 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { TouchableOpacity, View } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
 
+import gStyle from '../constants/gStyle';
 import SvgBell from './icons/Svg.Bell';
-import SvgSearch from './icons/Svg.Search';
 import SvgDotsVertical from './icons/Svg.DotsVertical';
-import { gStyle } from '../constants';
 
 const HeaderRight = ({ screenProps, navigation }) => (
   <View style={[gStyle.containerNavBlocks, gStyle.flexRowCenter]}>

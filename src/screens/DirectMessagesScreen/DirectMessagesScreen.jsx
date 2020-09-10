@@ -1,8 +1,7 @@
 import { StyleSheet, Text, View } from 'react-native';
-import PropTypes from 'prop-types';
 import React from 'react';
 
-import { gStyle } from '../../constants';
+import gStyle from '../../constants/gStyle';
 import BaseBottomTabNavigatorLayout from '../../layouts/BaseBottomTabNavigatorLayout';
 import colors from '../../constants/colors';
 
@@ -28,5 +27,4 @@ export default function DirectMessagesScreen(props) {
   );
 }
 
-DirectMessagesScreen.propTypes = {
-};
+DirectMessagesScreen.propTypes = {};

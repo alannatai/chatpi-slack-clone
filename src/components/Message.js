@@ -3,8 +3,9 @@ import PropTypes from 'prop-types';
 import { StyleSheet, View, ViewPropTypes } from 'react-native';
 import { Avatar, Day, utils } from 'react-native-gifted-chat';
 
+import gStyle from '../constants/gStyle';
+import colors from '../constants/colors';
 import MessageBubble from './MessageBubble';
-import { colors, gStyle } from '../constants';
 
 // components
 

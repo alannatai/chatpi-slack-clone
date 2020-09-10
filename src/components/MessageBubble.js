@@ -14,9 +14,9 @@ import {
   utils,
 } from 'react-native-gifted-chat';
 
+import gStyle from '../constants/gStyle';
 import device from '../constants/device';
 import colors from '../constants/colors';
-import { gStyle } from '../constants';
 
 const { isSameUser, isSameDay } = utils;
 

@@ -1,7 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { TouchableOpacity } from 'react-native';
-import { gStyle } from '../constants';
+
+import gStyle from '../constants/gStyle';
 
 const Touch = ({ onPress, style }) => (
   <TouchableOpacity
@@ -13,7 +14,7 @@ const Touch = ({ onPress, style }) => (
 
 Touch.defaultProps = {
   onPress: () => null,
-  style: {}
+  style: {},
 };
 
 Touch.propTypes = {
@@ -22,8 +23,8 @@ Touch.propTypes = {
   style: PropTypes.oneOfType([
     PropTypes.array,
     PropTypes.number,
-    PropTypes.object
-  ])
+    PropTypes.object,
+  ]),
 };
 
 export default Touch;

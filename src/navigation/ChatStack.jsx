@@ -1,71 +1,61 @@
+import { View } from 'react-native';
 import React from 'react';
-import { createStackNavigator } from '@react-navigation/stack';
+import { useSelector } from 'react-redux';
+import { createNativeStackNavigator } from 'react-native-screens/native-stack';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
+import ChatActions from '../screens/ChatActionsScreen/ChatActions';
+import HeaderRight from '../components/HeaderRight';
+import { baseSelectors } from '../store/base/ducks';
 import BaseBottomNavigator from './BaseBottomNavigator';
-import { gStyle } from '../constants';
 import ModalRoutes from './ModalRoutes';
 import Chat from '../screens/ChatScreen/Chat';
 import Notifications from '../screens/NotificationsScreen';
 
-// create stack navigator
-// const ChatStack = createStackNavigator(
-//   {
-//     Chat: {
-//       screen: Chat,
-//       navigationOptions: ({ screenProps }) => ({
-//         headerRight: <HeaderRight screenProps={screenProps} />,
-//       }),
-//     },
-//     Notifications,
-//     menu: {
-//       screen: AppStack,
-//       navigationOptions: ({ screenProps }) => ({
-//         headerVisible: false,
-//         // headerStyle: {
-//         //   backgroundColor: colors.purple,
-//         //   shadowColor: 'transparent',
-//         // },
-//         // headerTintColor: colors.white,
-//         // headerLeft: <HeaderLeft />,
-//         // title: 'Base',
-//       }),
-//     },
-//   },
-//   {
-//     headerMode: 'none',
-//     initialRouteName: 'Base',
-//     defaultNavigationOptions: {
-//       // headerLeft: <HeaderLeft />,
-//       // headerRight: <HeaderRight />,
-//       headerTitleStyle: gStyle.textLarsBold16,
-//     },
-//     transitionConfig: ModalRoutes,
-//   },
-// );
+const Stack = createNativeStackNavigator();
 
-// export default ChatStack;
+export default function ChatStack({ navigation }) {
+  console.log(navigation);
+  const baseName = useSelector(baseSelectors.currentBaseName);
 
-const Stack = createStackNavigator();
-
-export default function ChatStack() {
   return (
     <Stack.Navigator
       headerMode="none"
       initialRouteName="Base"
-      defaultNavigationOptions={{
-        // headerLeft: <HeaderLeft />,
-        // headerRight: <HeaderRight />,
-        headerTitleStyle: gStyle.textLarsBold16,
+      screenOptions={{
+        headerBackTitleVisible: false,
       }}
       transitionConfig={ModalRoutes}
     >
-      <Stack.Screen name="Chat" component={Chat} />
+      <Stack.Screen
+        name="Chat"
+        options={({ navigation }) => ({
+          title: baseName,
+          headerRight: () => (
+            <View style={{ marginRight: -25 }}>
+              <HeaderRight navigation={navigation} />
+            </View>
+          ),
+        })}
+        component={Chat}
+      />
+      <Stack.Screen
+        name="ChatActions"
+        title="ChatActions"
+        component={ChatActions}
+        options={{ stackPresentation: 'modal' }}
+      />
       <Stack.Screen
         name="Notifications"
-        title="Base"
+        title="Notifications"
         component={Notifications}
       />
-      <Stack.Screen name="Base" title="Base" component={BaseBottomNavigator} />
+      <Stack.Screen
+        name="Base"
+        title="Base"
+        component={BaseBottomNavigator}
+        options={{ title: 'Base', headerShown: false }}
+      />
     </Stack.Navigator>
   );
 }

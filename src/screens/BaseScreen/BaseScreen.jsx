@@ -22,9 +22,12 @@ export default function BaseScreen(props) {
   return (
     <BaseBottomTabNavigatorLayout>
       <View style={styles.container}>
-        <Text style={styles.text}>BaseScreen</Text>
-        <TouchableOpacity onPress={() => props.goToChat()}>
-          <Text>Chats</Text>
+        <Text style={[styles.text]}>BaseScreen</Text>
+        <TouchableOpacity
+          style={{ padding: 20 }}
+          onPress={() => props.goToChat()}
+        >
+          <Text style={gStyle.listText}>Chats</Text>
         </TouchableOpacity>
       </View>
     </BaseBottomTabNavigatorLayout>

@@ -25,10 +25,10 @@ export const normalizeAndUpdate = (state, prefix) =>
 
 /* Specific types */
 
-const userSchema = new schema.Entity('users', {}, { idAttribute: 'id' });
+const userSchema = new schema.Entity('user', {}, { idAttribute: 'id' });
 
 const chatSchema = new schema.Entity(
-  'chats',
+  'chat',
   {},
   { idAttribute: 'chatpiChatId' },
 );

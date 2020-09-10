@@ -1,6 +1,6 @@
-import PropTypes from 'prop-types';
 import React from 'react';
 
+import { NavigationPropType } from '../../utils/types';
 import DirectMessagesScreen from './DirectMessagesScreen';
 
 function DirectMessagesScreenContainer(props) {
@@ -12,7 +12,7 @@ function DirectMessagesScreenContainer(props) {
 }
 
 DirectMessagesScreenContainer.propTypes = {
-  navigation: PropTypes.navigation,
+  navigation: NavigationPropType,
 };
 
 export default DirectMessagesScreenContainer;

@@ -1,5 +1,6 @@
 import { normalize } from 'normalizr';
 import produce from 'immer';
+import { path } from 'ramda';
 
 import { base, normalizeAndUpdate } from '../../utils/schema';
 import {
@@ -39,8 +40,13 @@ export const { initialState, selectors } = createSelectorsAndState(
 
 export const baseSelectors = {
   ...selectors,
-  currentBase: (state) => state.baseEntities?.currentBaseId,
+  currentBase: (state) =>
+    path(
+      [baseNamespace, 'baseEntities', baseSelectors.currentBaseId(state)],
+      state,
+    ),
   currentChatId: (state) => baseSelectors.currentBase(state)?.chats?.[0],
+  currentBaseName: (state) => baseSelectors.currentBase(state)?.name,
 };
 
 const c = baseConstants;
@@ -58,10 +64,10 @@ const baseReducer = produce((state = initialState, action) => {
     }
     case c.RECEIVE_BASES: {
       const obj = normalize(action.payload.bases, [base]);
-      state.baseEntities = obj.entities.bases;
+      state.baseEntities = obj.entities.base;
       state.bases = obj.result;
-      state.userEntities = obj.entities.users;
-      state.chatEntities = obj.entities.chats;
+      state.userEntities = obj.entities.user;
+      state.chatEntities = obj.entities.chat;
       state.hasLoaded = true;
       if (!state.currentBaseId) {
         const [currentBaseId] = state.bases;

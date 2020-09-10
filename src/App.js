@@ -5,17 +5,19 @@ import { Provider } from 'react-redux';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { withAuthenticator } from 'aws-amplify-react-native';
 import { PersistGate } from 'redux-persist/integration/react';
+import { enableScreens } from 'react-native-screens';
 
 import ChatStack from './navigation/ChatStack';
 import { func } from './constants';
 import AlertToast from './components/AlertToast';
 import { authStateToActionDict } from './store/app/ducks';
-import DrawerRight from './components/DrawerRight';
 import Locale from './containers/Locale';
 import apiService from './services/api/apiService';
 import awsService from './services/aws/awsService';
 import getStore from './store/store';
 import AmplifyTheme from './constants/AmplifyTheme';
+
+enableScreens();
 
 awsService.init();
 apiService.init();
@@ -40,20 +42,11 @@ class App extends React.Component {
 
     this.state = {
       isLoading: true,
-      drawerRightIsOpened: false,
     };
-
-    this.handleRightDrawer = this.handleRightDrawer.bind(this);
-  }
-
-  handleRightDrawer(show) {
-    this.setState({
-      drawerRightIsOpened: show,
-    });
   }
 
   render() {
-    const { isLoading, drawerRightIsOpened } = this.state;
+    const { isLoading } = this.state;
 
     if (isLoading) {
       return (
@@ -72,10 +65,6 @@ class App extends React.Component {
             <NavigationContainer theme={defaultTheme}>
               <ChatStack />
             </NavigationContainer>
-            <DrawerRight
-              handleRightDrawer={this.handleRightDrawer}
-              show={drawerRightIsOpened}
-            />
             <AlertToast />
           </PersistGate>
         </Provider>

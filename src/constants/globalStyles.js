@@ -98,4 +98,6 @@ export default {
   pH8: { paddingHorizontal: 8 },
   pH16: { paddingHorizontal: 16 },
   pH24: { paddingHorizontal: 24 },
+
+  listText: { color: colors.white, ...this.textCiruBook12 },
 };

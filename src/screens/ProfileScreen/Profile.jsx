@@ -1,6 +1,6 @@
-import PropTypes from 'prop-types';
 import React from 'react';
 
+import { NavigationPropType } from '../../utils/types';
 import ProfileScreen from './ProfileScreen';
 
 function ProfileScreenContainer(props) {
@@ -12,7 +12,7 @@ function ProfileScreenContainer(props) {
 }
 
 ProfileScreenContainer.propTypes = {
-  navigation: PropTypes.navigation,
+  navigation: NavigationPropType,
 };
 
 export default ProfileScreenContainer;

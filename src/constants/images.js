@@ -7,5 +7,5 @@ export default {
   profile,
 
   user1,
-  user2
+  user2,
 };

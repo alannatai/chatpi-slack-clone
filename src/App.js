@@ -7,8 +7,8 @@ import { withAuthenticator } from 'aws-amplify-react-native';
 import { PersistGate } from 'redux-persist/integration/react';
 import { enableScreens } from 'react-native-screens';
 
+import MainAppStack from './navigation/MainAppStack';
 import func from './constants/func';
-import ChatStack from './navigation/ChatStack';
 import AlertToast from './components/AlertToast';
 import { authStateToActionDict } from './store/app/ducks';
 import Locale from './containers/Locale';
@@ -63,7 +63,7 @@ class App extends React.Component {
           <PersistGate loading={null} persistor={persistor}>
             <Locale />
             <NavigationContainer theme={defaultTheme}>
-              <ChatStack />
+              <MainAppStack />
             </NavigationContainer>
             <AlertToast />
           </PersistGate>

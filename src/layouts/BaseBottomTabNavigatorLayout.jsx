@@ -1,3 +1,4 @@
+import { useNavigation } from '@react-navigation/native';
 import { View } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -29,6 +30,7 @@ export default function BaseBottomTabNavigatorLayout({
   AfterActionComponent,
   ...props
 }) {
+  const navigation = useNavigation();
   const ContainerView = props.disableScroll ? View : ScrollView;
   return (
     <ContainerView
@@ -39,7 +41,7 @@ export default function BaseBottomTabNavigatorLayout({
       ]}
     >
       <SafeAreaView>
-        <HeaderLeft />
+        <HeaderLeft navigation={navigation} />
         <View style={styles.contentContainer}>{props.children}</View>
       </SafeAreaView>
     </ContainerView>

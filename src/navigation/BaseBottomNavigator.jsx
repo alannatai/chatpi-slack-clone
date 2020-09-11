@@ -1,6 +1,6 @@
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import React from 'react';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
 import { Feather, AntDesign } from '@expo/vector-icons';
 
@@ -11,12 +11,44 @@ import Profile from '../screens/ProfileScreen/Profile';
 import colors from '../constants/colors';
 import Base from '../screens/BaseScreen/Base';
 
+const Drawer = createDrawerNavigator();
+
+function BaseDrawerNavigator() {
+  return (
+    <Drawer.Navigator
+      drawerContent={DrawerContent}
+      edgeWidth="120"
+      drawerType="slide"
+      drawerWidth={device.width - 32}
+      initialRouteName="MainBaseScreen"
+      overlayColor={colors.black50}
+      drawerStyle={{
+        width: '90%',
+      }}
+    >
+      <Drawer.Screen name="MainBaseScreen" component={Base} />
+    </Drawer.Navigator>
+  );
+}
+
 const Tab = createBottomTabNavigator();
 
-function TabsNavigator() {
+export default function BaseBottomNavigator() {
   return (
     <Tab.Navigator
+      tabBar={() => <></>}
       initialRouteName="Base"
+      screenContainerStyle={{
+        shadowColor: '#000',
+        shadowOffset: {
+          width: 0,
+          height: 12,
+        },
+        shadowOpacity: 0.58,
+        shadowRadius: 16.0,
+
+        elevation: 24,
+      }}
       tabBarOptions={{
         tabStyle: {
           paddingTop: 10,
@@ -31,7 +63,7 @@ function TabsNavigator() {
     >
       <Tab.Screen
         name="Base"
-        component={Base}
+        component={BaseDrawerNavigator}
         options={{
           tabBarLabel: 'Home',
           tabBarIcon: ({ color, size }) => (
@@ -43,7 +75,29 @@ function TabsNavigator() {
         name="DirectMessages"
         component={DirectMessages}
         options={{
+          cardStyle: {
+            shadowColor: '#000',
+            shadowOffset: {
+              width: 0,
+              height: 12,
+            },
+            shadowOpacity: 0.58,
+            shadowRadius: 16.0,
+
+            elevation: 24,
+          },
           title: 'Messages',
+          sceneContainerStyle: {
+            shadowColor: '#000',
+            shadowOffset: {
+              width: 0,
+              height: 12,
+            },
+            shadowOpacity: 0.58,
+            shadowRadius: 16.0,
+
+            elevation: 24,
+          },
           tabBarLabel: 'DMs',
           tabBarIcon: ({ color, size }) => (
             <AntDesign name="message1" size={size} color={color} />
@@ -62,25 +116,5 @@ function TabsNavigator() {
         }}
       />
     </Tab.Navigator>
-  );
-}
-
-const Drawer = createDrawerNavigator();
-
-export default function TabsNavigatorWithDrawer() {
-  return (
-    <Drawer.Navigator
-      drawerContent={DrawerContent}
-      edgeWidth={100}
-      drawerType="slide"
-      drawerWidth={device.width - 32}
-      initialRouteName="ChatStack"
-      overlayColor={colors.black50}
-      drawerStyle={{
-        width: '90%',
-      }}
-    >
-      <Drawer.Screen name="ChatStack" component={TabsNavigator} />
-    </Drawer.Navigator>
   );
 }

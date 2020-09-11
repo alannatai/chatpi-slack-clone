@@ -7,7 +7,7 @@ function BaseScreenContainer(props) {
   const _props = {};
 
   const methods = {
-    goToChat: () => props.navigation.push('Chat'),
+    goToChat: () => props.navigation.jumpTo('Chat'),
   };
 
   return <BaseScreen {...{ ..._props, ...methods }} />;

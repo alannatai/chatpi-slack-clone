@@ -7,9 +7,9 @@ import { withAuthenticator } from 'aws-amplify-react-native';
 import { PersistGate } from 'redux-persist/integration/react';
 import { enableScreens } from 'react-native-screens';
 
+import AlertToast from './containers/AlertToast';
 import MainAppStack from './navigation/MainAppStack';
 import func from './constants/func';
-import AlertToast from './components/AlertToast';
 import { authStateToActionDict } from './store/app/ducks';
 import Locale from './containers/Locale';
 import apiService from './services/api/apiService';

@@ -1,12 +1,13 @@
+import { Keyboard, TouchableOpacity, View } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import { View } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import PropTypes from 'prop-types';
 import React from 'react';
 
+import gStyle from '../constants/gStyle';
+import SvgSlackLogo from '../components/icons/Svg.SlackLogo';
 import colors from '../constants/colors';
-import HeaderLeft from '../components/HeaderLeft';
 import { StylePropType } from '../utils/types';
 
 const styles = {
@@ -41,7 +42,18 @@ export default function BaseBottomTabNavigatorLayout({
       ]}
     >
       <SafeAreaView>
-        <HeaderLeft navigation={navigation} />
+        <View style={gStyle.containerNavBlocks}>
+          <TouchableOpacity
+            activeOpacity={gStyle.activeOpacity}
+            hitSlop={{ top: 10, left: 10, bottom: 10, right: 10 }}
+            onPress={() => {
+              Keyboard.dismiss();
+              navigation.openDrawer();
+            }}
+          >
+            <SvgSlackLogo />
+          </TouchableOpacity>
+        </View>
         <View style={styles.contentContainer}>{props.children}</View>
       </SafeAreaView>
     </ContainerView>

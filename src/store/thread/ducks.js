@@ -1,3 +1,4 @@
+import { pipe } from 'ramda';
 import produce from 'immer';
 
 import images from '../../constants/images';
@@ -41,6 +42,7 @@ const initialMessages = [
   },
 ];
 
+// TODO, nest messages under chat
 const { initialState, selectors } = createSelectorsAndState(threadNamespace, {
   isSending: false,
   recipient: {},
@@ -53,9 +55,24 @@ const { initialState, selectors } = createSelectorsAndState(threadNamespace, {
 
 export const threadSelectors = {
   ...selectors,
+  latestMessage: (state) => state[threadNamespace].messages?.[0],
 };
 
 const c = threadConstants;
+
+const mapMessage = ({ messageRes, user }) => ({
+  _id: messageRes?.id,
+  text: messageRes?.text,
+  createdAt: messageRes?.inserted_at,
+  user: {
+    _id: messageRes?.user_id,
+    name: user?.username,
+    avatar: user?.imageUrl,
+  },
+});
+
+const injectMessageM = (state, { messageRes, user }) =>
+  pipe(mapMessage, state.messages.unshift)({ messageRes, user });
 
 // Messages are sent by default as short, and no progress bar, if an error returns or
 // TODO A large message like an attachment needs to show progress + status
@@ -73,28 +90,17 @@ const threadReducer = produce((state = initialState, action) => {
       state.isSending = false;
       return state;
     case c.RECEIVE_MESSAGES: {
+      action.payload.messages.forEach((messageRes) =>
+        injectMessageM(state, { messageRes, user: action.payload.user }),
+      );
       return state;
     }
     case c.RECEIVE_MESSAGE: {
-      // this take a user object, but we should actually just call user by id, else user changes are hard to propagate
-      const messageRes = action.payload.message;
-      console.log(action.payload?.user?.imageUrl);
-
-      if (!messageRes) return state;
-
-      const message = {
-        _id: messageRes?.id,
-        text: messageRes?.text,
-        createdAt: messageRes?.inserted_at,
-        user: {
-          _id: messageRes?.user_id,
-          // name: messageRes?.user_id,
-          name: action.payload?.user?.username,
-          avatar: action.payload?.user?.imageUrl,
-        },
-      };
-
-      state.messages.unshift(message);
+      // this takes a user object, but we should actually just call user by id, else user changes are hard to propagate
+      injectMessageM(state, {
+        messageRes: action.payload.message,
+        user: action.payload.user,
+      });
       return state;
     }
     default:

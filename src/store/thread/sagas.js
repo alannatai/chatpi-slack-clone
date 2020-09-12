@@ -1,4 +1,4 @@
-import { PURGE } from 'redux-persist';
+// import { PURGE } from 'redux-persist';
 import {
   all,
   call,
@@ -16,28 +16,48 @@ import {
   sendMessageAsync,
 } from '@knotfive/chatpi-client-js/src/chatpi-client';
 
+import { threadActions, threadConstants, threadSelectors } from './ducks';
 import { getCurrentChatId } from '../base/helpers';
 import apiService, { apiCall } from '../../services/api/apiService';
 import { baseSelectors } from '../base/ducks';
 import envService from '../../services/env/envService';
-import { threadActions, threadConstants } from './ducks';
 
-// retrieve past messages
-function* getMessagesForBase() {
+function* catchUpMessagesForBase() {
   const chatId = yield select(baseSelectors.currentChatId);
-  yield apiCall(
-    {
-      call: apiService.chat.get,
-      *onSuccess(response) {
-        yield put(
-          threadActions.receiveMessages({
-            messages: response.messages,
-          }),
-        );
+  const messages = yield select(threadSelectors.messages);
+
+  if (messages.length === 0) {
+    yield apiCall(
+      {
+        call: apiService.chat.get,
+        *onSuccess(response) {
+          yield put(
+            threadActions.receiveMessages({
+              messages: response.messages,
+            }),
+          );
+        },
       },
-    },
-    `/v1/chats/${chatId}/messages`,
-  );
+      `/v1/chats/${chatId}/messages`,
+    );
+  } else {
+    const latestMessage = yield select(threadSelectors.latestMessage);
+    const { createdAt } = latestMessage;
+
+    yield apiCall(
+      {
+        call: apiService.chat.get,
+        *onSuccess(response) {
+          yield put(
+            threadActions.receiveMessages({
+              messages: response.messages,
+            }),
+          );
+        },
+      },
+      `/v1/chats/${chatId}/messages?query=after&inserted_at=${createdAt}`,
+    );
+  }
 }
 
 // TODO push tokens
@@ -45,12 +65,12 @@ function* getMessagesForBase() {
 function* subscribeMessageUpdates(messagesChannel) {
   while (true) {
     const { ok, message, reason } = yield take(messagesChannel);
-    if (!ok) {
+    if (!ok || !message) {
       console.warn(reason); //eslint-disable-line
+    } else {
+      const user = yield select(baseSelectors.getUser(message.user_id));
+      yield put(threadActions.receiveMessage({ message, user }));
     }
-
-    const user = yield select(baseSelectors.getUser(message.user_id));
-    yield put(threadActions.receiveMessage({ message, user }));
   }
 }
 
@@ -105,6 +125,6 @@ export default function* threadSaga() {
     key: 'reduxState', // Whatever you chose for the "key" value when initialising redux-persist in the **persistCombineReducers** method - e.g. "root"
     result: () => null, // Func expected on the submitted action.
   });
-  yield fork(getMessagesForBase);
+  yield fork(catchUpMessagesForBase);
   yield startChannel();
 }

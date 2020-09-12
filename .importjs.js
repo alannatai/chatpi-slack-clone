@@ -6,6 +6,15 @@ module.exports = {
   namedExports: {
     '@storybook/react-native': ['storiesOf'],
     '@react-navigation/native': ['useNavigation'],
+    'redux-saga/effects': [
+      'select',
+      'fork',
+      'put',
+      'take',
+      'takeEvery',
+      'call',
+      'all',
+    ],
     react: [
       'useState',
       'useEffect',

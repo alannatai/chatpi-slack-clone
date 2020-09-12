@@ -1,5 +1,14 @@
+import { PURGE } from 'redux-persist';
+import {
+  all,
+  call,
+  fork,
+  put,
+  select,
+  take,
+  takeEvery,
+} from 'redux-saga/effects';
 import { Auth } from 'aws-amplify';
-import { put, take, takeEvery, call, all } from 'redux-saga/effects';
 import { eventChannel as EventChannel } from 'redux-saga';
 import {
   BROADCAST_ACTION,
@@ -7,8 +16,29 @@ import {
   sendMessageAsync,
 } from '@knotfive/chatpi-client-js/src/chatpi-client';
 
+import { getCurrentChatId } from '../base/helpers';
+import apiService, { apiCall } from '../../services/api/apiService';
+import { baseSelectors } from '../base/ducks';
 import envService from '../../services/env/envService';
 import { threadActions, threadConstants } from './ducks';
+
+// retrieve past messages
+function* getMessagesForBase() {
+  const chatId = yield select(baseSelectors.currentChatId);
+  yield apiCall(
+    {
+      call: apiService.chat.get,
+      *onSuccess(response) {
+        yield put(
+          threadActions.receiveMessages({
+            messages: response.messages,
+          }),
+        );
+      },
+    },
+    `/v1/chats/${chatId}/messages`,
+  );
+}
 
 // TODO push tokens
 //
@@ -19,7 +49,8 @@ function* subscribeMessageUpdates(messagesChannel) {
       console.warn(reason); //eslint-disable-line
     }
 
-    yield put(threadActions.receiveMessage({ message }));
+    const user = yield select(baseSelectors.getUser(message.user_id));
+    yield put(threadActions.receiveMessage({ message, user }));
   }
 }
 
@@ -37,9 +68,6 @@ function* watchForSendMessage(channel, action) {
   }
 }
 
-// function* syncThread() {
-// }
-
 function* watchForChannelClose(channel) {
   yield take([threadConstants.CLOSE]);
   channel.close();
@@ -47,27 +75,19 @@ function* watchForChannelClose(channel) {
 
 function* startChannel() {
   const { accessToken } = yield Auth.currentSession();
+  const currentChatId = yield getCurrentChatId();
 
   const userToken = 10;
 
   const channel = yield createChannel({
-    channelId: 'f902b5f2-f458-47c2-a7f6-1b00d41998a6',
-    url: envService.getConfig().chatApiUrl,
+    channelId: currentChatId,
+    url: envService.getConfig().chatpiSocketUrl,
     userToken,
     authorizationToken: accessToken.jwtToken,
   });
 
   const messagesChannel = new EventChannel((emitter) => {
     channel.on(BROADCAST_ACTION, (message) => emitter({ ok: true, message })); //eslint-disable-line
-
-    channel
-      .join()
-      .receive('ok', (message) => emitter({ ok: true, message }))
-      .receive('error', ({ reason }) => emitter({ ok: false, reason }))
-      .receive(
-        'timeout',
-        () => console.warn('Networking issue. Still waiting...'), //eslint-disable-line
-      );
 
     return () => channel.leave();
   });
@@ -80,5 +100,11 @@ function* startChannel() {
 }
 
 export default function* threadSaga() {
+  yield put({
+    type: PURGE,
+    key: 'reduxState', // Whatever you chose for the "key" value when initialising redux-persist in the **persistCombineReducers** method - e.g. "root"
+    result: () => null, // Func expected on the submitted action.
+  });
+  yield fork(getMessagesForBase);
   yield startChannel();
 }

@@ -22,7 +22,7 @@
     "prestorybook": "rnstl --searchDir ./src --pattern \"**/*.stories.jsx\" --outputFile ./storybook/storyLoader.js"
   },
   "dependencies": {
-    "@knotfive/chatpi-client-js": "^0.0.11",
+    "@knotfive/chatpi-client-js": "^0.0.18",
     "@react-native-community/async-storage": "^1.12.0",
     "@react-native-community/masked-view": "^0.1.10",
     "@react-native-community/netinfo": "5.9.2",

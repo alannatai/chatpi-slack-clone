@@ -13,6 +13,7 @@ const constArr = [
   'SEND_MESSAGE',
   'SEND_MESSAGE_SUCCESS',
   'RECEIVE_MESSAGE',
+  'RECEIVE_MESSAGES',
   'SEND_MESSAGE_ERROR',
   'CLOSE',
 
@@ -71,8 +72,13 @@ const threadReducer = produce((state = initialState, action) => {
     case c.SEND_MESSAGE_ERROR:
       state.isSending = false;
       return state;
+    case c.RECEIVE_MESSAGES: {
+      return state;
+    }
     case c.RECEIVE_MESSAGE: {
+      // this take a user object, but we should actually just call user by id, else user changes are hard to propagate
       const messageRes = action.payload.message;
+      console.log(action.payload?.user?.imageUrl);
 
       if (!messageRes) return state;
 
@@ -82,11 +88,13 @@ const threadReducer = produce((state = initialState, action) => {
         createdAt: messageRes?.inserted_at,
         user: {
           _id: messageRes?.user_id,
-          name: messageRes?.user_id,
+          // name: messageRes?.user_id,
+          name: action.payload?.user?.username,
+          avatar: action.payload?.user?.imageUrl,
         },
       };
 
-      state.messages.push(message);
+      state.messages.unshift(message);
       return state;
     }
     default:

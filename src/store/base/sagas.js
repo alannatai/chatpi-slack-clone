@@ -1,7 +1,7 @@
-import { all } from 'ramda';
-import { select, put, fork } from 'redux-saga/effects';
+import { put, fork } from 'redux-saga/effects';
 
-import { baseActions, baseConstants, baseSelectors } from './ducks';
+import { baseActions, baseConstants } from './ducks';
+import { getCurrentChatId } from './helpers';
 import { watchActionsLatest } from '../../utils/watchActions';
 import apiService, { apiCall } from '../../services/api/apiService';
 
@@ -24,24 +24,8 @@ function* getBases() {
   );
 }
 
-function* getMessagesForBase() {
-  const chatId = yield select(baseSelectors.currentChatId);
-  yield apiCall(
-    {
-      call: apiService.chat.get,
-      *onSuccess(response) {
-        yield put(
-          baseActions.receiveMessages({
-            messages: response.messages,
-          }),
-        );
-      },
-    },
-    `/v1/chats/${chatId}/`,
-  );
-}
-
 function* getChatForBase() {
+  const currentChatId = yield getCurrentChatId();
   yield apiCall(
     {
       call: apiService.core.get,
@@ -53,22 +37,18 @@ function* getChatForBase() {
         );
       },
     },
-    '/v1/chats/',
+    `/v1/chats/${currentChatId}`,
   );
-}
-
-function* getCurrentChatDetails() {
-  yield all([getChatForBase, getMessagesForBase]);
 }
 
 function* init() {
   yield getBases();
-  yield getCurrentChatDetails();
+  yield getChatForBase();
 }
 
 export default function* basesSaga() {
   yield init();
   yield fork(watchActionsLatest, [
-    [baseConstants.GET_CHAT_FOR_BASE, getCurrentChatDetails],
+    [baseConstants.GET_CHAT_FOR_BASE, getChatForBase],
   ]);
 }

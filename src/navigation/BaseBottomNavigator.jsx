@@ -1,15 +1,15 @@
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createDrawerNavigator } from '@react-navigation/drawer';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import React from 'react';
 
 import { Feather, AntDesign } from '@expo/vector-icons';
 
+import Base from '../screens/BaseScreen/Base';
 import DrawerContent from '../components/DrawerContent';
 import device from '../constants/device';
 import DirectMessages from '../screens/DirectMessagesScreen/DirectMessages';
 import Profile from '../screens/ProfileScreen/Profile';
 import colors from '../constants/colors';
-import Base from '../screens/BaseScreen/Base';
 
 const Drawer = createDrawerNavigator();
 
@@ -17,7 +17,7 @@ function BaseDrawerNavigator() {
   return (
     <Drawer.Navigator
       drawerContent={DrawerContent}
-      edgeWidth="120"
+      edgeWidth={120}
       drawerType="slide"
       drawerWidth={device.width - 32}
       initialRouteName="MainBaseScreen"

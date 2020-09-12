@@ -36,16 +36,16 @@ export default function configureStore(initialState) {
   sagaMiddleware.run(rootSaga);
   store.runSaga = sagaMiddleware.run;
   store.asyncReducers = {};
-  if (module.hot) {
-    module.hot.accept('./reducers', () => {
-      import('./reducers').then((reducerModule) => {
-        const createReducers = reducerModule.default;
-        const nextReducers = createReducers(store.asyncReducers);
+  // if (module.hot) {
+  //   module.hot.accept('./reducers', () => {
+  //     import('./reducers').then((reducerModule) => {
+  //       const createReducers = reducerModule.default;
+  //       const nextReducers = createReducers(store.asyncReducers);
 
-        store.replaceReducer(nextReducers);
-      });
-    });
-  }
+  //       store.replaceReducer(nextReducers);
+  //     });
+  //   });
+  // }
   storeFuncs.dispatch = store.dispatch;
   return { store, persistor };
 }

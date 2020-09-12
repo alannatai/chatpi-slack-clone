@@ -70,7 +70,6 @@ class Message extends React.Component {
     }
 
     const avatarProps = this.getInnerComponentProps();
-
     return (
       <Avatar
         {...avatarProps}

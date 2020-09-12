@@ -10,8 +10,8 @@ import Notifications from '../screens/NotificationsScreen';
 
 const Stack = createNativeStackNavigator();
 
-export default function MainAppStack({ navigation }) {
-  console.log(navigation);
+export default function MainAppStack() {
+  const baseName = useSelector(baseSelectors.currentBaseName);
 
   return (
     <Stack.Navigator

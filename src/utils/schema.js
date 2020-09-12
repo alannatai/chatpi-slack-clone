@@ -24,8 +24,14 @@ export const normalizeAndUpdate = (state, prefix) =>
   pipe(normalizeBase, updateState(state, prefix));
 
 /* Specific types */
-
-const userSchema = new schema.Entity('user', {}, { idAttribute: 'id' });
+const memberSchema = new schema.Entity(
+  'user',
+  {},
+  {
+    idAttribute: (memberEntity) => memberEntity.user.authKey,
+    processStrategy: (entity) => entity.user,
+  },
+);
 
 const chatSchema = new schema.Entity(
   'chat',
@@ -37,7 +43,7 @@ const chatSchema = new schema.Entity(
 export const base = new schema.Entity(
   'base',
   {
-    members: [userSchema],
+    members: [memberSchema],
     chats: [chatSchema],
   },
   { idAttribute: 'id' },

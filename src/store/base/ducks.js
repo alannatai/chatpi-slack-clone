@@ -47,6 +47,7 @@ export const baseSelectors = {
     ),
   currentChatId: (state) => baseSelectors.currentBase(state)?.chats?.[0],
   currentBaseName: (state) => baseSelectors.currentBase(state)?.name,
+  getUser: (authKey) => (state) => baseSelectors.userEntities(state)?.[authKey],
 };
 
 const c = baseConstants;

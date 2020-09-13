@@ -47,10 +47,7 @@ const { initialState, selectors } = createSelectorsAndState(threadNamespace, {
   isSending: false,
   recipient: {},
   messages: initialMessages,
-  // messageList: initialMessages.result,
-  // messageEntities: initialMessages.entities.dbObject,
-  // messageList: [],
-  // messageEntities: {},
+  presences: {},
 });
 
 export const threadSelectors = {
@@ -89,7 +86,11 @@ const threadReducer = produce((state = initialState, action) => {
     case c.SEND_MESSAGE_ERROR:
       state.isSending = false;
       return state;
+    case c.PRESENCE_CHANGE:
+      state.isSending = false;
+      return state;
     case c.RECEIVE_MESSAGES: {
+      console.log(state);
       action.payload.messages.forEach((messageRes) =>
         injectMessageM(state, { messageRes, user: action.payload.user }),
       );

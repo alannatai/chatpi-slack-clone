@@ -2,6 +2,20 @@
 import { mapObjIndexed, path } from 'ramda';
 import { createActions } from 'redux-actions';
 import constants from 'namespace-constants';
+import { ignoreActions } from 'redux-ignore';
+
+// run ignore actions on actions in all reducers outside of notIgnoredReducerName
+export const ignoreOutside = (notIgnoredReducerName, actions) => (
+  combinedReducers,
+) =>
+  Object.entries(combinedReducers).reduce(
+    (acc, [k, reducer]) => ({
+      ...acc,
+      [k]:
+        k === notIgnoredReducerName ? reducer : ignoreActions(reducer, actions),
+    }),
+    combinedReducers,
+  );
 
 function actionsNamespaceWrapper(namespace) {
   return (obj) =>

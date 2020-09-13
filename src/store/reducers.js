@@ -1,5 +1,7 @@
+import { pipe } from 'ramda';
 import { combineReducers } from 'redux';
 
+import { ignoreOutside } from '../utils/reduxHelpers';
 import baseReducer, { baseNamespace } from './base/ducks';
 import appReducer, { appConstants, appNamespace } from './app/ducks';
 import alertReducer, { alertNamespace } from './alert/ducks';
@@ -15,7 +17,12 @@ export const signedInReducers = {
 };
 
 export default function createReducer(asyncReducers) {
-  const combinedReducer = combineReducers({
+  const createCombinedReducer = pipe(
+    ignoreOutside(baseNamespace, ['PRESENCE_CHANGE']),
+    combineReducers,
+  );
+
+  const combinedReducer = createCombinedReducer({
     [appNamespace]: appReducer,
     [alertNamespace]: alertReducer,
     [errorNamespace]: errorReducer,

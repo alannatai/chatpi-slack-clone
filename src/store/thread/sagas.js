@@ -12,8 +12,8 @@ import { Auth } from 'aws-amplify';
 import { eventChannel as EventChannel } from 'redux-saga';
 import { Connection } from '@knotfive/chatpi-client-js/src/chatpi-client';
 
+import { getCurrentBase, getCurrentChatId } from '../base/helpers';
 import { threadActions, threadConstants, threadSelectors } from './ducks';
-import { getCurrentChatId } from '../base/helpers';
 import apiService, { apiCall } from '../../services/api/apiService';
 import { baseSelectors } from '../base/ducks';
 import envService from '../../services/env/envService';
@@ -59,15 +59,15 @@ function* catchUpMessagesForBase() {
   }
 }
 
-function* handleSuccessfulChatpiEvent(message) {
-  switch (message.type) {
+function* handleSuccessfulChatpiEvent(event) {
+  switch (event.type) {
     case PRESENCE_CHANGE:
-      console.log(message);
-      // yield put(threadActions.receiveMessage({ message, user }));
+      // const user = yield select(baseSelectors.getUser(event.message.user_id));
+      // yield put(threadActions.precenseChange({ presence: event.presence, user }));
       break;
     case RECEIVE_MESSAGE: {
-      const user = yield select(baseSelectors.getUser(message.user_id));
-      yield put(threadActions.receiveMessage({ message, user }));
+      const user = yield select(baseSelectors.getUser(event.payload.user_id));
+      yield put(threadActions.receiveMessage({ message: event.payload, user }));
       break;
     }
     default:
@@ -78,11 +78,11 @@ function* handleSuccessfulChatpiEvent(message) {
 //
 function* subscribeChatpiEvent(messagesChannel) {
   while (true) {
-    const { ok, message, reason } = yield take(messagesChannel);
-    if (!ok || !message) {
+    const { ok, type, payload, reason } = yield take(messagesChannel);
+    if (!ok || !payload) {
       console.warn(reason); //eslint-disable-line
     } else {
-      yield handleSuccessfulChatpiEvent(message);
+      yield handleSuccessfulChatpiEvent({ type, payload });
     }
   }
 }
@@ -91,7 +91,7 @@ function* watchForSendMessage(connection, action) {
   const currentChatId = yield getCurrentChatId();
 
   try {
-    connection.sendMessageAsync({
+    connection.sendMessage({
       channelId: currentChatId,
       message: {
         text: action.payload[0].text,
@@ -109,8 +109,8 @@ function* watchForChannelClose(channel) {
 
 function* startChannel() {
   const { accessToken } = yield Auth.currentSession();
+  yield getCurrentBase();
   const channelIds = yield select(baseSelectors.allChatIds);
-  console.log(channelIds);
 
   if (channelIds.length === 0) {
     return;
@@ -118,24 +118,25 @@ function* startChannel() {
 
   const userToken = '10';
 
-  let emitter;
+  let connection;
 
-  const messagesChannel = new EventChannel((_emitter) => {
-    emitter = _emitter;
-  });
-
-  const connection = new Connection({
-    url: envService.getConfig().chatpiSocketUrl,
-    apiKey: envService.getConfig().apiKey,
-    userToken,
-    authorizationToken: accessToken.jwtToken,
-    channelIds,
-    onPresenceChange: (channelId, presence) => {
-      emitter({ ok: true, type: PRESENCE_CHANGE, presence });
-    },
-    onMessageReceive: (channelId, message) => {
-      emitter({ ok: true, type: RECEIVE_MESSAGE, message });
-    },
+  const messagesChannel = new EventChannel((emitter) => {
+    connection = new Connection({
+      url: envService.getConfig().chatpiSocketUrl,
+      apiKey: envService.getConfig().apiKey,
+      userToken,
+      authorizationToken: accessToken.jwtToken,
+      channelIds,
+      onPresenceChange: (channelId, presence) => {
+        emitter({ ok: true, type: PRESENCE_CHANGE, payload: presence });
+      },
+      onMessageReceive: (channelId, message) => {
+        emitter({ ok: true, type: RECEIVE_MESSAGE, payload: message });
+      },
+    });
+    return () => {
+      console.log('disconnect');
+    };
   });
 
   yield all([

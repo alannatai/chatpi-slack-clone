@@ -1,4 +1,5 @@
 /* @module */
+import { call, delay } from 'redux-saga/effects';
 import { mapObjIndexed, path } from 'ramda';
 import { createActions } from 'redux-actions';
 import constants from 'namespace-constants';
@@ -16,6 +17,27 @@ export const ignoreOutside = (notIgnoredReducerName, actions) => (
     }),
     combinedReducers,
   );
+
+export const retryHoc = (maxTries, retryDelay) =>
+  function* retrySaga(generator, ...args) {
+    const n = 0;
+    while (n <= maxTries) {
+      try {
+        yield call(generator, ...args);
+        break;
+      } catch (e) {
+        if (n < maxTries) {
+          yield console.warn(
+            `saga failed ${maxTries} times, rerunning, error was: `,
+            e,
+          );
+        } else {
+          yield console.warn('saga failed, rerunning, error was: ', e);
+        }
+      }
+      yield delay(retryDelay);
+    }
+  };
 
 function actionsNamespaceWrapper(namespace) {
   return (obj) =>

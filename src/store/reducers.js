@@ -18,11 +18,19 @@ export const signedInReducers = {
 
 export default function createReducer(asyncReducers) {
   const createCombinedReducer = pipe(
-    ignoreOutside(baseNamespace, ['PRESENCE_CHANGE']),
+    // ignoreOutside(baseNamespace, ['PRESENCE_CHANGE']),
     combineReducers,
   );
 
-  const combinedReducer = createCombinedReducer({
+  // const combinedReducer = createCombinedReducer({
+  //   [appNamespace]: appReducer,
+  //   [alertNamespace]: alertReducer,
+  //   [errorNamespace]: errorReducer,
+  //   ...signedInReducers,
+  //   ...asyncReducers,
+  // });
+
+  const combinedReducer = combineReducers({
     [appNamespace]: appReducer,
     [alertNamespace]: alertReducer,
     [errorNamespace]: errorReducer,

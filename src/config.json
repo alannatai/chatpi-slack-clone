@@ -1,5 +1,6 @@
 {
   "coreApiUrl": "http://192.168.1.15:8080/api",
   "chatApiUrl": "http://192.168.1.15:4000/api",
-  "chatpiSocketUrl": "192.168.1.15:4000"
+  "chatpiSocketUrl": "192.168.1.15:4000",
+  "apiKey": "touchbase"
 }

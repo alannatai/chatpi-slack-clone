@@ -28,10 +28,13 @@ ChatScreenContainer.propTypes = {
   chatId: PropTypes.string,
 };
 
-const mapStateToProps = (state) => ({
-  messages: threadSelectors.messages(state),
-  chatId: baseSelectors.currentChatId(state),
-});
+const mapStateToProps = (state) => {
+  const chatId = baseSelectors.currentChatId(state);
+  return {
+    messages: threadSelectors.messagesByChatId(chatId)(state),
+    chatId,
+  };
+};
 
 const mapDispatchToProps = {
   sendMessage: threadActions.sendMessage,

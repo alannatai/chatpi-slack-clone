@@ -35,6 +35,8 @@ const { initialState, selectors } = createSelectorsAndState(threadNamespace, {
   isSending: false,
   recipient: {},
   messages: {},
+  // these are objects for now, but they really should be sets, it's giving unexpected behaviour in immer
+  messageSets: {},
   presences: {},
 });
 
@@ -58,6 +60,17 @@ const transformMessageResToMessage = ({ messageRes, user }) => ({
   },
 });
 
+const pushMessageIfNotFound = (chatId, messageRes, user, state) => {
+  if (!state.messageSets[chatId][messageRes.id]) {
+    state.messageSets[chatId][messageRes.id] = true;
+    const message = transformMessageResToMessage({
+      messageRes,
+      user,
+    });
+    state.messages[chatId].unshift(message);
+  }
+};
+
 // Messages are sent by default as short, and no progress bar, if an error returns or
 // TODO A large message like an attachment needs to show progress + status
 const threadReducer = produce((state = initialState, action) => {
@@ -78,27 +91,34 @@ const threadReducer = produce((state = initialState, action) => {
       return state;
     case c.RECEIVE_MESSAGES: {
       const { chatId } = action.payload;
-      if (!state.messages[chatId]) state.messages[chatId] = initialMessages;
-
-      action.payload.messages.forEach((messageRes) => {
-        const message = transformMessageResToMessage({
-          messageRes,
-          user: action.payload.user,
-        });
-        state.messages[chatId].unshift(message);
-      });
+      if (!state.messages[chatId]) {
+        state.messages[chatId] = initialMessages;
+      }
+      if (!state.messageSets[chatId]) {
+        state.messageSets[chatId] = {};
+      }
+      action.payload.messages.forEach((messageRes) =>
+        pushMessageIfNotFound(chatId, messageRes, action.payload.user, state),
+      );
       return state;
     }
     case c.RECEIVE_MESSAGE: {
       // this takes a user object, but we should actually just call user by id, else user changes are hard to propagate
       const { chatId } = action.payload;
-      if (!state.messages[chatId]) state.messages[chatId] = initialMessages;
 
-      const message = transformMessageResToMessage({
-        messageRes: action.payload.message,
-        user: action.payload.user,
-      });
-      state.messages[chatId].unshift(message);
+      if (!state.messages[chatId]) {
+        state.messages[chatId] = initialMessages;
+      }
+      if (!state.messageSets[chatId]) {
+        state.messageSets[chatId] = {};
+      }
+
+      pushMessageIfNotFound(
+        chatId,
+        action.payload.message,
+        action.payload.user,
+        state,
+      );
       return state;
     }
     default:

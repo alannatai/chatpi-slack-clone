@@ -24,7 +24,6 @@ const RECEIVE_MESSAGE = 'RECEIVE_MESSAGE';
 function* catchUpMessagesForBase() {
   const chatId = yield select(baseSelectors.currentChatId);
   const messages = yield select(threadSelectors.messagesByChatId(chatId));
-  console.log(messages);
 
   if (!messages || messages.length === 0) {
     yield apiCall(
@@ -44,7 +43,6 @@ function* catchUpMessagesForBase() {
   } else {
     const latestMessage = yield select(threadSelectors.latestMessage(chatId));
     const { createdAt } = latestMessage;
-
     yield apiCall(
       {
         call: apiService.chat.get,
@@ -67,7 +65,7 @@ function* handleSuccessfulChatpiEvent(event) {
     case PRESENCE_CHANGE:
       console.log(event);
       // const user = yield select(baseSelectors.getUser(event.message.user_id));
-      // yield put(threadActions.precenseChange({ presence: event.presence, user }));
+      // yield put(threadActions.precenseChagne({ presence: event.presence, user }));
       break;
     case RECEIVE_MESSAGE: {
       const user = yield select(baseSelectors.getUser(event.payload.user_id));

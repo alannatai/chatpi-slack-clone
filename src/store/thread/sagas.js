@@ -23,15 +23,17 @@ const RECEIVE_MESSAGE = 'RECEIVE_MESSAGE';
 
 function* catchUpMessagesForBase() {
   const chatId = yield select(baseSelectors.currentChatId);
-  const messages = yield select(threadSelectors.messages);
+  const messages = yield select(threadSelectors.messagesByChatId(chatId));
+  console.log(messages);
 
-  if (messages.length === 0) {
+  if (!messages || messages.length === 0) {
     yield apiCall(
       {
         call: apiService.chat.get,
         *onSuccess(response) {
           yield put(
             threadActions.receiveMessages({
+              chatId,
               messages: response.messages,
             }),
           );
@@ -40,7 +42,7 @@ function* catchUpMessagesForBase() {
       `/v1/chats/${chatId}/messages`,
     );
   } else {
-    const latestMessage = yield select(threadSelectors.latestMessage);
+    const latestMessage = yield select(threadSelectors.latestMessage(chatId));
     const { createdAt } = latestMessage;
 
     yield apiCall(
@@ -49,6 +51,7 @@ function* catchUpMessagesForBase() {
         *onSuccess(response) {
           yield put(
             threadActions.receiveMessages({
+              chatId,
               messages: response.messages,
             }),
           );
@@ -62,12 +65,19 @@ function* catchUpMessagesForBase() {
 function* handleSuccessfulChatpiEvent(event) {
   switch (event.type) {
     case PRESENCE_CHANGE:
+      console.log(event);
       // const user = yield select(baseSelectors.getUser(event.message.user_id));
       // yield put(threadActions.precenseChange({ presence: event.presence, user }));
       break;
     case RECEIVE_MESSAGE: {
       const user = yield select(baseSelectors.getUser(event.payload.user_id));
-      yield put(threadActions.receiveMessage({ message: event.payload, user }));
+      yield put(
+        threadActions.receiveMessage({
+          chatId: event.channelId,
+          message: event.payload,
+          user,
+        }),
+      );
       break;
     }
     default:
@@ -78,11 +88,13 @@ function* handleSuccessfulChatpiEvent(event) {
 //
 function* subscribeChatpiEvent(messagesChannel) {
   while (true) {
-    const { ok, type, payload, reason } = yield take(messagesChannel);
+    const { ok, type, payload, channelId, reason } = yield take(
+      messagesChannel,
+    );
     if (!ok || !payload) {
       console.warn(reason); //eslint-disable-line
     } else {
-      yield handleSuccessfulChatpiEvent({ type, payload });
+      yield handleSuccessfulChatpiEvent({ type, channelId, payload });
     }
   }
 }
@@ -128,12 +140,23 @@ function* startChannel() {
       authorizationToken: accessToken.jwtToken,
       channelIds,
       onPresenceChange: (channelId, presence) => {
-        emitter({ ok: true, type: PRESENCE_CHANGE, payload: presence });
+        emitter({
+          ok: true,
+          type: PRESENCE_CHANGE,
+          channelId,
+          payload: presence,
+        });
       },
       onMessageReceive: (channelId, message) => {
-        emitter({ ok: true, type: RECEIVE_MESSAGE, payload: message });
+        emitter({
+          ok: true,
+          type: RECEIVE_MESSAGE,
+          channelId,
+          payload: message,
+        });
       },
     });
+
     return () => {
       console.log('disconnect');
     };

@@ -1,6 +1,6 @@
-import { pipe } from 'ramda';
 import produce from 'immer';
 
+import { baseSelectors } from '../base/ducks';
 import images from '../../constants/images';
 import {
   createConstantsAndActions,
@@ -28,31 +28,21 @@ export const {
 } = createConstantsAndActions(threadNamespace, constArr);
 
 // TEMPORARY
-const initialMessages = [
-  {
-    _id: 1,
-    text: 'Hello developer!',
-    createdAt: new Date(),
-
-    user: {
-      _id: 1,
-      avatar: images.profile,
-      name: 'Tester Test',
-    },
-  },
-];
+const initialMessages = [];
 
 // TODO, nest messages under chat
 const { initialState, selectors } = createSelectorsAndState(threadNamespace, {
   isSending: false,
   recipient: {},
-  messages: initialMessages,
+  messages: {},
   presences: {},
 });
 
 export const threadSelectors = {
   ...selectors,
-  latestMessage: (state) => state[threadNamespace].messages?.[0],
+  latestMessage: (chatId) => (state) =>
+    state[threadNamespace].messages[chatId]?.[0],
+  messagesByChatId: (chatId) => (state) => selectors.messages(state)[chatId],
 };
 
 const c = threadConstants;
@@ -87,22 +77,28 @@ const threadReducer = produce((state = initialState, action) => {
       state.isSending = false;
       return state;
     case c.RECEIVE_MESSAGES: {
+      const { chatId } = action.payload;
+      if (!state.messages[chatId]) state.messages[chatId] = initialMessages;
+
       action.payload.messages.forEach((messageRes) => {
         const message = transformMessageResToMessage({
           messageRes,
           user: action.payload.user,
         });
-        state.messages.unshift(message);
+        state.messages[chatId].unshift(message);
       });
       return state;
     }
     case c.RECEIVE_MESSAGE: {
       // this takes a user object, but we should actually just call user by id, else user changes are hard to propagate
+      const { chatId } = action.payload;
+      if (!state.messages[chatId]) state.messages[chatId] = initialMessages;
+
       const message = transformMessageResToMessage({
         messageRes: action.payload.message,
         user: action.payload.user,
       });
-      state.messages.unshift(message);
+      state.messages[chatId].unshift(message);
       return state;
     }
     default:

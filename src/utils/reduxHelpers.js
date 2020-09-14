@@ -31,6 +31,7 @@ export const retryHoc = (maxTries, retryDelay) =>
             `saga failed ${maxTries} times, rerunning, error was: `,
             e,
           );
+          break;
         } else {
           yield console.warn('saga failed, rerunning, error was: ', e);
         }

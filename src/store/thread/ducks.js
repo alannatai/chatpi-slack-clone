@@ -1,7 +1,5 @@
 import produce from 'immer';
 
-import { baseSelectors } from '../base/ducks';
-import images from '../../constants/images';
 import {
   createConstantsAndActions,
   createSelectorsAndState,

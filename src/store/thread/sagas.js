@@ -12,10 +12,10 @@ import { Auth } from 'aws-amplify';
 import { eventChannel as EventChannel } from 'redux-saga';
 import { Connection } from '@knotfive/chatpi-client-js/src/chatpi-client';
 
-import { getCurrentBase, getCurrentChatId } from '../base/helpers';
+import { baseActions, baseSelectors } from '../base/ducks';
+import { getCurrentChatId } from '../base/helpers';
 import { threadActions, threadConstants, threadSelectors } from './ducks';
 import apiService, { apiCall } from '../../services/api/apiService';
-import { baseSelectors } from '../base/ducks';
 import envService from '../../services/env/envService';
 
 const PRESENCE_CHANGE = 'PRESENCE_CHANGE';
@@ -63,9 +63,8 @@ function* catchUpMessagesForBase() {
 function* handleSuccessfulChatpiEvent(event) {
   switch (event.type) {
     case PRESENCE_CHANGE:
-      console.log(event);
-      // const user = yield select(baseSelectors.getUser(event.message.user_id));
-      // yield put(threadActions.precenseChagne({ presence: event.presence, user }));
+      // typing indicator vs thread level presence vs app level presence, track all 3
+      // yield put(baseActions.presenceChange({ presence: event.presence }));
       break;
     case RECEIVE_MESSAGE: {
       const user = yield select(baseSelectors.getUser(event.payload.user_id));
@@ -119,7 +118,7 @@ function* watchForChannelClose(channel) {
 
 function* startChannel() {
   const { accessToken } = yield Auth.currentSession();
-  yield getCurrentBase();
+  const currentChatId = yield getCurrentChatId();
   const channelIds = yield select(baseSelectors.allChatIds);
 
   if (channelIds.length === 0) {
@@ -154,6 +153,8 @@ function* startChannel() {
         });
       },
     });
+
+    connection.watchPresence(currentChatId);
 
     return () => {
       connection.disconnect();

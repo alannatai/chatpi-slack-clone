@@ -156,7 +156,7 @@ function* startChannel() {
     });
 
     return () => {
-      console.log('disconnect');
+      connection.disconnect();
     };
   });
 

@@ -57,7 +57,7 @@ export const threadSelectors = {
 
 const c = threadConstants;
 
-const mapMessage = ({ messageRes, user }) => ({
+const transformMessageResToMessage = ({ messageRes, user }) => ({
   _id: messageRes?.id,
   text: messageRes?.text,
   createdAt: messageRes?.inserted_at,
@@ -67,9 +67,6 @@ const mapMessage = ({ messageRes, user }) => ({
     avatar: user?.imageUrl,
   },
 });
-
-const injectMessageM = (state, { messageRes, user }) =>
-  pipe(mapMessage, state.messages.unshift)({ messageRes, user });
 
 // Messages are sent by default as short, and no progress bar, if an error returns or
 // TODO A large message like an attachment needs to show progress + status
@@ -90,18 +87,22 @@ const threadReducer = produce((state = initialState, action) => {
       state.isSending = false;
       return state;
     case c.RECEIVE_MESSAGES: {
-      console.log(state);
-      action.payload.messages.forEach((messageRes) =>
-        injectMessageM(state, { messageRes, user: action.payload.user }),
-      );
+      action.payload.messages.forEach((messageRes) => {
+        const message = transformMessageResToMessage({
+          messageRes,
+          user: action.payload.user,
+        });
+        state.messages.unshift(message);
+      });
       return state;
     }
     case c.RECEIVE_MESSAGE: {
       // this takes a user object, but we should actually just call user by id, else user changes are hard to propagate
-      injectMessageM(state, {
+      const message = transformMessageResToMessage({
         messageRes: action.payload.message,
         user: action.payload.user,
       });
+      state.messages.unshift(message);
       return state;
     }
     default:

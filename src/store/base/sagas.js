@@ -4,23 +4,30 @@ import { baseActions, baseConstants } from './ducks';
 import { getCurrentChatId } from './helpers';
 import { watchActionsLatest } from '../../utils/watchActions';
 import apiService, { apiCall } from '../../services/api/apiService';
+import basesResponse from '../../../__mocks__/bases.json';
 
 /**
  * Get all chats to display
  */
 function* getBases() {
-  yield apiCall(
-    {
-      call: apiService.core.get,
-      *onSuccess(response) {
-        yield put(
-          baseActions.receiveBases({
-            bases: response.list,
-          }),
-        );
-      },
-    },
-    '/v1/base/',
+  // yield apiCall(
+  //   {
+  //     call: apiService.core.get,
+  //     *onSuccess(response) {
+  //       yield put(
+  //         baseActions.receiveBases({
+  //           bases: response.list,
+  //         }),
+  //       );
+  //     },
+  //   },
+  //   '/v1/base/',
+  // );
+
+  yield put(
+    baseActions.receiveBases({
+      bases: basesResponse.list,
+    }),
   );
 }
 

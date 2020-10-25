@@ -16,7 +16,7 @@ const Drawer = createDrawerNavigator();
 function BaseDrawerNavigator() {
   return (
     <Drawer.Navigator
-      drawerContent={DrawerContent}
+      drawerContent={() => <DrawerContent />}
       edgeWidth={120}
       drawerType="slide"
       drawerWidth={device.width - 32}

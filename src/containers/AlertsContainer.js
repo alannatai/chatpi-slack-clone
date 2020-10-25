@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import { connect } from 'react-redux';
+import {  } from 'react-redux';
 
 import AlertToast from '../components/AlertToast';
 import { errorActions, errorSelectors } from '../store/error/ducks';
@@ -20,4 +20,4 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = {
   clearAlert: errorActions.clearAlert,
 };
-export default connect(mapStateToProps, mapDispatchToProps)(AlertContainer);
+export default (mapStateToProps, mapDispatchToProps)(AlertContainer);

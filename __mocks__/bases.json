@@ -1,0 +1,157 @@
+{
+  "list": [
+      {
+          "createdAt": "2020-08-08T00:00:00",
+          "updatedAt": "2020-08-08T00:00:00",
+          "id": "6034f8e2-df82-11ea-87d0-0242ac130003",
+          "name": "base1",
+          "score": 0.0,
+          "imageUrl": "https://images.unsplash.com/photo-1597476934600-ef660b4ce617?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1950&q=80",
+          "members": [
+              {
+                  "user": {
+                      "createdAt": "2020-08-08T00:00:00",
+                      "updatedAt": "2020-08-08T00:00:00",
+                      "id": "40e6215d-b5c6-4896-987c-f30f3678f608",
+                      "authKey": "129830df-f45a-46b3-b766-2101db28ea62",
+                      "username": "arcq",
+                      "email": "eddielaw296@gmail.com",
+                      "score": 0.0,
+                      "firstName": "eddie",
+                      "lastName": "law",
+                      "imageUrl": "https://images.unsplash.com/photo-1597476934600-ef660b4ce617?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1950&q=80"
+                  },
+                  "role": "ADMIN"
+              },
+              {
+                  "user": {
+                      "createdAt": "2020-08-08T00:00:00",
+                      "updatedAt": "2020-08-08T00:00:00",
+                      "id": "1544caf8-df80-11ea-87d0-0242ac130003",
+                      "authKey": "5728dfb5-d089-48f1-aa9c-f1ea436fa8b1",
+                      "username": "sita",
+                      "email": "alanna.tai@gmail.com",
+                      "score": 0.0,
+                      "firstName": "alanna",
+                      "lastName": "tai",
+                      "imageUrl": "https://images.unsplash.com/photo-1597476934600-ef660b4ce617?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1950&q=80"
+                  },
+                  "role": "MEMBER"
+              },
+              {
+                  "user": {
+                      "createdAt": "2020-08-08T00:00:00",
+                      "updatedAt": "2020-08-08T00:00:00",
+                      "id": "56431cd1-6724-4ac9-af64-08c74d8df027",
+                      "authKey": "5728dfb5-d089-48f1-aa9c-f1ea436fa820",
+                      "username": "d0nkers",
+                      "email": "eltonlaw296@gmail.com",
+                      "score": 0.0,
+                      "firstName": "elton",
+                      "lastName": "law",
+                      "imageUrl": "https://images.unsplash.com/photo-1597588405595-982407b950d2?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=701&q=80"
+                  },
+                  "role": "MEMBER"
+              }
+          ],
+          "chats": [
+              {
+                  "chatpiChatId": "cf4aeae1-cda7-41f3-adf7-9b2bb377be7d"
+              }
+          ],
+          "active": true
+      },
+      {
+          "createdAt": "2020-08-22T00:00:00",
+          "updatedAt": "2020-08-22T00:00:00",
+          "id": "a510a7cc-df82-11ea-87d0-0242ac130003",
+          "name": "base2",
+          "score": 0.0,
+          "imageUrl": "https://images.unsplash.com/photo-1597415885008-d7929349a704?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80",
+          "members": [
+              {
+                  "user": {
+                      "createdAt": "2020-08-08T00:00:00",
+                      "updatedAt": "2020-08-08T00:00:00",
+                      "id": "40e6215d-b5c6-4896-987c-f30f3678f608",
+                      "authKey": "129830df-f45a-46b3-b766-2101db28ea62",
+                      "username": "arcq",
+                      "email": "eddielaw296@gmail.com",
+                      "score": 0.0,
+                      "firstName": "eddie",
+                      "lastName": "law",
+                      "imageUrl": "https://images.unsplash.com/photo-1597476934600-ef660b4ce617?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1950&q=80"
+                  },
+                  "role": "MEMBER"
+              },
+              {
+                  "user": {
+                      "createdAt": "2020-08-08T00:00:00",
+                      "updatedAt": "2020-08-08T00:00:00",
+                      "id": "1544caf8-df80-11ea-87d0-0242ac130003",
+                      "authKey": "5728dfb5-d089-48f1-aa9c-f1ea436fa8b1",
+                      "username": "sita",
+                      "email": "alanna.tai@gmail.com",
+                      "score": 0.0,
+                      "firstName": "alanna",
+                      "lastName": "tai",
+                      "imageUrl": "https://images.unsplash.com/photo-1597476934600-ef660b4ce617?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1950&q=80"
+                  },
+                  "role": "ADMIN"
+              }
+          ],
+          "chats": [
+              {
+                  "chatpiChatId": "83cdd361-54a2-4e5a-a6db-35e20fc54555"
+              }
+          ],
+          "active": true
+      },
+      {
+          "createdAt": "2020-08-22T00:00:00",
+          "updatedAt": "2020-08-22T00:00:00",
+          "id": "b6bcc88e-df82-11ea-87d0-0242ac130003",
+          "name": "base3",
+          "score": 0.0,
+          "imageUrl": "https://images.unsplash.com/photo-1597055181449-b3f17e2ada63?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=700&q=80",
+          "members": [
+              {
+                  "user": {
+                      "createdAt": "2020-08-08T00:00:00",
+                      "updatedAt": "2020-08-08T00:00:00",
+                      "id": "40e6215d-b5c6-4896-987c-f30f3678f608",
+                      "authKey": "129830df-f45a-46b3-b766-2101db28ea62",
+                      "username": "arcq",
+                      "email": "eddielaw296@gmail.com",
+                      "score": 0.0,
+                      "firstName": "eddie",
+                      "lastName": "law",
+                      "imageUrl": "https://images.unsplash.com/photo-1597476934600-ef660b4ce617?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1950&q=80"
+                  },
+                  "role": "ADMIN"
+              },
+              {
+                  "user": {
+                      "createdAt": "2020-08-08T00:00:00",
+                      "updatedAt": "2020-08-08T00:00:00",
+                      "id": "56431cd1-6724-4ac9-af64-08c74d8df027",
+                      "authKey": "5728dfb5-d089-48f1-aa9c-f1ea436fa820",
+                      "username": "d0nkers",
+                      "email": "eltonlaw296@gmail.com",
+                      "score": 0.0,
+                      "firstName": "elton",
+                      "lastName": "law",
+                      "imageUrl": "https://images.unsplash.com/photo-1597588405595-982407b950d2?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=701&q=80"
+                  },
+                  "role": "MEMBER"
+              }
+          ],
+          "chats": [
+              {
+                  "chatpiChatId": "7a6ad1d6-551c-453a-9a66-879c2587ca0d"
+              }
+          ],
+          "active": true
+      }
+  ]
+}

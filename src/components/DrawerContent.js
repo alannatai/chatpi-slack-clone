@@ -43,14 +43,7 @@ const styles = StyleSheet.create({
   },
 });
 
-function DrawerContent({
-  bases,
-  baseEntities,
-  currentBaseId,
-  setCurrentBaseId,
-}) {
-  console.log('ENTITIES:', baseEntities);
-  console.log(currentBaseId);
+function DrawerContent({ bases, baseEntities, setCurrentBaseId }) {
   return (
     <View style={styles.drawerContentContainer}>
       <View style={styles.header}>
@@ -81,7 +74,6 @@ function DrawerContent({
 const mapStateToProps = (state) => ({
   bases: baseSelectors.bases(state),
   baseEntities: baseSelectors.baseEntities(state),
-  currentBaseId: baseSelectors.currentBaseId(state),
 });
 
 const mapDispatchToProps = {

@@ -20,19 +20,14 @@ const styles = StyleSheet.create({
 });
 
 function DrawerContent(props) {
-  return <View style={styles.drawerContentContainer}></View>;
+  return <View style={styles.drawerContentContainer} />;
 }
 
-const mapStateToProps = (state) => (
-  {
-    bases: baseSelectors.bases(state),
-    baseEntities: baseSelectors.baseEntities(state),
-  }
-);
+const mapStateToProps = (state) => ({
+  bases: baseSelectors.bases(state),
+  baseEntities: baseSelectors.baseEntities(state),
+});
 
 const mapDispatchToProps = {};
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)(DrawerContent);
+export default connect(mapStateToProps, mapDispatchToProps)(DrawerContent);

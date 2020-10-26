@@ -12,7 +12,7 @@ import { Auth } from 'aws-amplify';
 import { eventChannel as EventChannel } from 'redux-saga';
 import { Connection } from '@knotfive/chatpi-client-js/src/chatpi-client';
 
-import { baseActions, baseSelectors } from '../base/ducks';
+import { baseSelectors } from '../base/ducks';
 import { getCurrentChatId } from '../base/helpers';
 import { threadActions, threadConstants, threadSelectors } from './ducks';
 import apiService, { apiCall } from '../../services/api/apiService';
@@ -22,8 +22,9 @@ const PRESENCE_CHANGE = 'PRESENCE_CHANGE';
 const RECEIVE_MESSAGE = 'RECEIVE_MESSAGE';
 
 function* catchUpMessagesForBase() {
-  const chatId = yield select(baseSelectors.currentChatId);
+  const chatId = yield getCurrentChatId();
   const messages = yield select(threadSelectors.messagesByChatId(chatId));
+  const insertedAt = '2020-09-12T05:29:57';
 
   if (!messages || messages.length === 0) {
     yield apiCall(
@@ -38,7 +39,7 @@ function* catchUpMessagesForBase() {
           );
         },
       },
-      `/v1/chats/${chatId}/messages`,
+      `/v1/chats/${chatId}/messages?query_type=after&inserted_at=${insertedAt}`,
     );
   } else {
     const latestMessage = yield select(threadSelectors.latestMessage(chatId));
@@ -55,7 +56,7 @@ function* catchUpMessagesForBase() {
           );
         },
       },
-      `/v1/chats/${chatId}/messages?query=after&inserted_at=${createdAt}`,
+      `/v1/chats/${chatId}/messages?query_type=after&inserted_at=${createdAt}`,
     );
   }
 }
@@ -174,6 +175,6 @@ export default function* threadSaga() {
     key: 'reduxState', // Whatever you chose for the "key" value when initialising redux-persist in the **persistCombineReducers** method - e.g. "root"
     result: () => null, // Func expected on the submitted action.
   });
-  // yield fork(catchUpMessagesForBase);
-  // yield startChannel();
+  yield fork(catchUpMessagesForBase);
+  yield startChannel();
 }

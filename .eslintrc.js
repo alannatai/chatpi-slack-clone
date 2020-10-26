@@ -14,7 +14,9 @@ module.exports = {
   env: {
     jest: true,
   },
-  globals: {},
+  globals: {
+    __DEV__: 'readonly',
+  },
   settings: {
     // 'import/resolver': {
     //   node: {

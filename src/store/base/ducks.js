@@ -17,6 +17,7 @@ const constArr = [
   'GET_CHAT_FOR_BASE',
   'PRESENCE_CHANGE',
   'RECEIVE_BASES',
+  'SET_CURRENT_BASE_ID',
 ];
 
 export const {
@@ -37,7 +38,6 @@ export const { initialState, selectors } = createSelectorsAndState(
     hasLoaded: false,
   },
 );
-
 
 export const baseSelectors = {
   ...selectors,
@@ -80,6 +80,9 @@ const baseReducer = produce((state = initialState, action) => {
     }
     case c.MARK_SEEN:
       state.chatEntities[action.payload.id].isSeen = true;
+      return state;
+    case c.SET_CURRENT_BASE_ID:
+      state.currentBaseId = action.payload.currentBaseId;
       return state;
     default:
       return state;

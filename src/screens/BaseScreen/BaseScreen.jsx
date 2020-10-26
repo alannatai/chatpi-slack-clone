@@ -18,15 +18,13 @@ const styles = StyleSheet.create({
   },
 });
 
-export default function BaseScreen(props) {
+export default function BaseScreen({ currentBaseId, goToChat }) {
   return (
     <BaseBottomTabNavigatorLayout>
       <View style={styles.container}>
         <Text style={[styles.text]}>BaseScreen</Text>
-        <TouchableOpacity
-          style={{ padding: 20 }}
-          onPress={() => props.goToChat()}
-        >
+        <Text style={[styles.text]}>{currentBaseId}</Text>
+        <TouchableOpacity style={{ padding: 20 }} onPress={() => goToChat()}>
           <Text style={gStyle.listText}>Chats</Text>
         </TouchableOpacity>
       </View>

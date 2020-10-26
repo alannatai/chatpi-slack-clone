@@ -1,7 +1,7 @@
 import { StyleSheet, View, TouchableOpacity, Text, Image } from 'react-native';
 import React from 'react';
 import { connect } from 'react-redux';
-import { baseSelectors } from '../store/base/ducks';
+import { baseSelectors, baseActions } from '../store/base/ducks';
 
 import gStyle from '../constants/gStyle';
 import colors from '../constants/colors';
@@ -43,8 +43,14 @@ const styles = StyleSheet.create({
   },
 });
 
-function DrawerContent({ bases, baseEntities }) {
+function DrawerContent({
+  bases,
+  baseEntities,
+  currentBaseId,
+  setCurrentBaseId,
+}) {
   console.log('ENTITIES:', baseEntities);
+  console.log(currentBaseId);
   return (
     <View style={styles.drawerContentContainer}>
       <View style={styles.header}>
@@ -55,7 +61,13 @@ function DrawerContent({ bases, baseEntities }) {
           const base = baseEntities[baseId];
 
           return (
-            <TouchableOpacity key={baseId} style={styles.baseLinkContainer}>
+            <TouchableOpacity
+              key={baseId}
+              style={styles.baseLinkContainer}
+              onPress={() => {
+                setCurrentBaseId({ currentBaseId: baseId });
+              }}
+            >
               <Image source={{ uri: base.imageUrl }} style={styles.image} />
               <Text style={styles.text}>{base.name}</Text>
             </TouchableOpacity>
@@ -69,8 +81,11 @@ function DrawerContent({ bases, baseEntities }) {
 const mapStateToProps = (state) => ({
   bases: baseSelectors.bases(state),
   baseEntities: baseSelectors.baseEntities(state),
+  currentBaseId: baseSelectors.currentBaseId(state),
 });
 
-const mapDispatchToProps = {};
+const mapDispatchToProps = {
+  setCurrentBaseId: baseActions.setCurrentBaseId,
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(DrawerContent);

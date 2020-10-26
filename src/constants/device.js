@@ -31,5 +31,5 @@ export default {
   iPhoneX,
   isPad,
   web,
-  width
+  width,
 };

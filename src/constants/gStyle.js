@@ -58,6 +58,7 @@ export default {
   textLarsBold14: { fontFamily: fonts.larsseitBold, fontSize: 14 },
   textLarsBold16: { fontFamily: fonts.larsseitBold, fontSize: 16 },
   textLarsBold18: { fontFamily: fonts.larsseitBold, fontSize: 18 },
+  textLarsBold20: { fontFamily: fonts.larsseitBold, fontSize: 20 },
   textLarsItalic14: { fontFamily: fonts.larsseitItalic, fontSize: 14 },
   textLarsItalic16: { fontFamily: fonts.larsseitItalic, fontSize: 16 },
   textLarsItalic18: { fontFamily: fonts.larsseitItalic, fontSize: 18 },

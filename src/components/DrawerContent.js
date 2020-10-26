@@ -1,12 +1,13 @@
-import { StyleSheet, View, TouchableOpacity, Text, Image } from 'react-native';
+import { View, TouchableOpacity, Text, Image } from 'react-native';
 import React from 'react';
 import { connect } from 'react-redux';
 import { baseSelectors, baseActions } from '../store/base/ducks';
 
 import gStyle from '../constants/gStyle';
 import colors from '../constants/colors';
+import sharedStyles from '../constants/sharedStyles';
 
-const styles = StyleSheet.create({
+const styles = {
   drawerContentContainer: {
     backgroundColor: colors.purpleDark,
     flex: 1,
@@ -14,17 +15,11 @@ const styles = StyleSheet.create({
   drawerLinksContainer: {
     backgroundColor: colors.purple,
     flex: 1,
-    paddingHorizontal: 15,
+    paddingHorizontal: 16,
   },
   baseLinkContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginTop: 15,
-  },
-  text: {
-    ...gStyle.textLarsBold18,
-    color: colors.white,
-    fontSize: 20,
+    ...gStyle.flexRowCenterAlign,
+    marginTop: 16,
   },
   header: {
     paddingVertical: 20,
@@ -32,22 +27,19 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
   },
-  headerText: {
-    fontWeight: '600',
-  },
   image: {
     height: 60,
     width: 60,
     borderRadius: 8,
-    marginRight: 15,
+    marginRight: 16,
   },
-});
+};
 
 function DrawerContent({ bases, baseEntities, setCurrentBaseId }) {
   return (
     <View style={styles.drawerContentContainer}>
       <View style={styles.header}>
-        <Text style={{ ...styles.text, ...styles.headerText }}>Bases</Text>
+        <Text style={sharedStyles.textWhiteBold20}>Bases</Text>
       </View>
       <View style={styles.drawerLinksContainer}>
         {bases.map((baseId) => {
@@ -62,7 +54,7 @@ function DrawerContent({ bases, baseEntities, setCurrentBaseId }) {
               }}
             >
               <Image source={{ uri: base.imageUrl }} style={styles.image} />
-              <Text style={styles.text}>{base.name}</Text>
+              <Text style={sharedStyles.textWhite20}>{base.name}</Text>
             </TouchableOpacity>
           );
         })}

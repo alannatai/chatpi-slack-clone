@@ -43,11 +43,11 @@ export default function createReducer(asyncReducers) {
     combinedReducer(
       action.type === appConstants.SIGNED_OUT
         ? {
-            [appNamespace]: undefined,
-            [alertNamespace]: undefined,
-            [errorNamespace]: undefined,
-            [threadNamespace]: undefined,
-          }
+          [appNamespace]: undefined,
+          [alertNamespace]: undefined,
+          [errorNamespace]: undefined,
+          [threadNamespace]: undefined,
+        }
         : state,
       action,
     );

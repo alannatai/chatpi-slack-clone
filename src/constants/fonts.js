@@ -12,6 +12,6 @@ export default [
     circularProBook,
     larsseitBold,
     larsseitItalic,
-    larsseitThin
-  }
+    larsseitThin,
+  },
 ];

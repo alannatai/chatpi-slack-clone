@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import {  } from 'react-redux';
+import { } from 'react-redux';
 
 import AlertToast from '../components/AlertToast';
 import { errorActions, errorSelectors } from '../store/error/ducks';

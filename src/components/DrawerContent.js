@@ -35,7 +35,7 @@ const styles = {
   },
 };
 
-function DrawerContent({ bases, baseEntities, setCurrentBaseId }) {
+function DrawerContent({ bases, baseEntities, changeCurrentBase }) {
   return (
     <View style={styles.drawerContentContainer}>
       <View style={styles.header}>
@@ -50,7 +50,7 @@ function DrawerContent({ bases, baseEntities, setCurrentBaseId }) {
               key={baseId}
               style={styles.baseLinkContainer}
               onPress={() => {
-                setCurrentBaseId({ currentBaseId: baseId });
+                changeCurrentBase({ currentBaseId: baseId });
               }}
             >
               <Image source={{ uri: base.imageUrl }} style={styles.image} />
@@ -69,7 +69,7 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = {
-  setCurrentBaseId: baseActions.setCurrentBaseId,
+  changeCurrentBase: baseActions.changeCurrentBase,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(DrawerContent);

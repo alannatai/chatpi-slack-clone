@@ -228,7 +228,7 @@ const styles = StyleSheet.create({
   },
   timeText: {
     ...gStyle.textCiruBook12,
-    color: colors.greyTime,
+    color: colors.grayTime,
   },
   slackImage: {
     borderRadius: 3,

@@ -47,7 +47,7 @@ function AlertToast(props) {
         style={[
           style.alertContainer,
           {
-            backgroundColor: colors[props.alert?.type] || colors.grey,
+            backgroundColor: colors[props.alert?.type] || colors.gray,
             paddingBottom: ALERT_PADDING + insets.bottom - 10,
           },
         ]}

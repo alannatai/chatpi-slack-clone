@@ -8,40 +8,54 @@ import colors from '../constants/colors';
 import sharedStyles from '../constants/sharedStyles';
 
 const styles = {
-  drawerContentContainer: {
-    backgroundColor: colors.purpleDark,
+  drawerContainer: {
+    backgroundColor: colors.white,
     flex: 1,
+    flexDirection: 'row',
   },
-  drawerLinksContainer: {
-    backgroundColor: colors.purple,
-    flex: 1,
-    paddingHorizontal: 16,
+  drawerNavContainer: {
+    backgroundColor: colors.lightGray,
+    paddingTop: '40%',
   },
   baseLinkContainer: {
-    ...gStyle.flexRowCenterAlign,
-    marginTop: 16,
+    marginHorizontal: 20,
+    marginBottom: 10,
+    alignItems: 'center',
   },
-  header: {
-    paddingVertical: 20,
-    marginTop: 40,
-    justifyContent: 'space-between',
+  baseImageContainer: {
+    marginBottom: 3,
+    height: 72,
+    width: 72,
+    justifyContent: 'center',
     alignItems: 'center',
   },
   image: {
     height: 60,
     width: 60,
     borderRadius: 8,
-    marginRight: 16,
   },
+  selectedImageBorder: {
+    borderColor: '#555',
+    borderWidth: 3,
+    borderRadius: 12,
+  },
+  selectedBaseSettingsContainer: {
+    flex: 1,
+    paddingTop: '40%',
+  },
+  settingsSection: {
+    borderBottomColor: colors.lightGray,
+    borderBottomWidth: 1,
+    paddingHorizontal: 20,
+  }
 };
 
-function DrawerContent({ bases, baseEntities, changeCurrentBase }) {
+function DrawerContent({ bases, baseEntities, changeCurrentBase, currentBaseId }) { 
+  const selectedBase = baseEntities[currentBaseId];
+  
   return (
-    <View style={styles.drawerContentContainer}>
-      <View style={styles.header}>
-        <Text style={sharedStyles.textWhiteBold20}>Bases</Text>
-      </View>
-      <View style={styles.drawerLinksContainer}>
+    <View style={styles.drawerContainer}>
+      <View style={styles.drawerNavContainer}>
         {bases.map((baseId) => {
           const base = baseEntities[baseId];
 
@@ -53,11 +67,19 @@ function DrawerContent({ bases, baseEntities, changeCurrentBase }) {
                 changeCurrentBase({ currentBaseId: baseId });
               }}
             >
-              <Image source={{ uri: base.imageUrl }} style={styles.image} />
-              <Text style={sharedStyles.textWhite20}>{base.name}</Text>
+              <View style={[styles.baseImageContainer, selectedBase === base ? styles.selectedImageBorder : null]}>
+                <Image source={{ uri: base.imageUrl }} style={styles.image} />
+              </View>
+              <Text style={sharedStyles.text12}>{base.name}</Text>
             </TouchableOpacity>
           );
         })}
+      </View>
+      <View style={styles.selectedBaseSettingsContainer}>
+        <View style={styles.settingsSection}>
+          <Text style={{ ...sharedStyles.textBold20, marginBottom: 3 }}>{selectedBase.name}</Text>
+          <Text style={{ ...sharedStyles.textGray, marginBottom: 20 }}>{selectedBase.name}.slack.com</Text>
+        </View>
       </View>
     </View>
   );
@@ -66,6 +88,7 @@ function DrawerContent({ bases, baseEntities, changeCurrentBase }) {
 const mapStateToProps = (state) => ({
   bases: baseSelectors.bases(state),
   baseEntities: baseSelectors.baseEntities(state),
+  currentBaseId: baseSelectors.currentBaseId(state),
 });
 
 const mapDispatchToProps = {

@@ -32,7 +32,7 @@ const styles = StyleSheet.create({
   },
   btn: {
     backgroundColor: colors.white,
-    borderColor: colors.greyTime,
+    borderColor: colors.grayTime,
     borderRadius: 3,
     borderWidth: 1,
     paddingHorizontal: 12,
@@ -40,7 +40,7 @@ const styles = StyleSheet.create({
   },
   btnText: {
     ...gStyle.textCiruBold14,
-    color: colors.greyTime,
+    color: colors.grayTime,
   },
   btnActive: {
     backgroundColor: colors.blueSend,

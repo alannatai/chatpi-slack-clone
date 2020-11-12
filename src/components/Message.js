@@ -131,7 +131,7 @@ const styles = StyleSheet.create({
   },
   containerDay: {
     alignItems: 'flex-start',
-    borderBottomColor: colors.greyLine,
+    borderBottomColor: colors.grayLine,
     borderBottomWidth: 1,
     marginHorizontal: 8,
   },

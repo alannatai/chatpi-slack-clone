@@ -2,14 +2,16 @@ import { createDrawerNavigator } from '@react-navigation/drawer';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import React from 'react';
 
-import { Feather, AntDesign } from '@expo/vector-icons';
+import { Feather, Octicons, MaterialCommunityIcons } from '@expo/vector-icons';
 
 import Base from '../screens/BaseScreen/Base';
 import DrawerContent from '../components/DrawerContent';
 import device from '../constants/device';
 import DirectMessages from '../screens/DirectMessagesScreen/DirectMessages';
 import Profile from '../screens/ProfileScreen/Profile';
+import Mentions from '../screens/MentionsScreen/Mentions';
 import colors from '../constants/colors';
+import BottomTabNav from '../components/BottomTabNav';
 
 const Drawer = createDrawerNavigator();
 
@@ -36,7 +38,7 @@ const Tab = createBottomTabNavigator();
 export default function BaseBottomNavigator() {
   return (
     <Tab.Navigator
-      tabBar={() => <></>}
+      tabBar={props => <BottomTabNav {...props} />}
       initialRouteName="Base"
       screenContainerStyle={{
         shadowColor: '#000',
@@ -100,9 +102,19 @@ export default function BaseBottomNavigator() {
           },
           tabBarLabel: 'DMs',
           tabBarIcon: ({ color, size }) => (
-            <AntDesign name="message1" size={size} color={color} />
+            <Feather name="message-circle" size={size} color={color} />
           ),
           tabBarBadge: 3,
+        }}
+      />
+      <Tab.Screen
+        name="Mentions"
+        component={Mentions}
+        options={{
+          tabBarLabel: 'Mentions',
+          tabBarIcon: ({ color, size }) => (
+            <Octicons name="mention" size={size} color={color} />
+          ),
         }}
       />
       <Tab.Screen
@@ -111,7 +123,7 @@ export default function BaseBottomNavigator() {
         options={{
           tabBarLabel: 'You',
           tabBarIcon: ({ color, size }) => (
-            <AntDesign name="profile" size={size} color={color} />
+            <MaterialCommunityIcons name="face" size={size} color={color} />
           ),
         }}
       />

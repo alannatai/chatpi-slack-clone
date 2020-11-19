@@ -20,6 +20,7 @@ export default {
   blueSend: '#2e629e',
   lightGray: '#EEE',
   gray: '#999',
+  darkGray: '#444',
   grayIcon: '#616061',
   grayLine: '#c6c6c6',
   grayTime: '#868686',

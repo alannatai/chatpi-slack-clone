@@ -16,7 +16,7 @@ const styles = StyleSheet.create({
     marginTop: 20,
   },
   headerTextContainer: {
-    marginLeft: 20
+    marginLeft: 20,
   },
   image: {
     width: 150,

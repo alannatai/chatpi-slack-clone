@@ -2499,10 +2499,10 @@
     "@types/yargs" "^15.0.0"
     chalk "^3.0.0"
 
-"@knotfive/chatpi-client-js@^0.0.25":
-  version "0.0.25"
-  resolved "https://registry.yarnpkg.com/@knotfive/chatpi-client-js/-/chatpi-client-js-0.0.25.tgz#874da531717c25ff81f406a1257c41d38b3d7a25"
-  integrity sha512-Rta9eqe9rApbWyBZTOhVutFka1tVHO8t6hisMCpMfAmLxswiQDnlqxdervP31huoXr0qxlb//hDoiJakbco2Ww==
+"@knotfive/chatpi-client-js@^0.0.27":
+  version "0.0.27"
+  resolved "https://registry.yarnpkg.com/@knotfive/chatpi-client-js/-/chatpi-client-js-0.0.27.tgz#febccf18315f33abb91a5804c880eb0acdbc069a"
+  integrity sha512-x9TbVdJQFVqrWgH6q945B87Q/+wx8ltjypMFNEZcMr2j6ai3ON1LfNj8yWzYdEBXwEesNnpzEXbjEIWULU3nGg==
   dependencies:
     phoenix "^1.5.4"
 

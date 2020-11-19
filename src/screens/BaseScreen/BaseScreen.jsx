@@ -1,32 +1,63 @@
-import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { StyleSheet, Text, TouchableOpacity, View, Image } from 'react-native';
 import PropTypes from 'prop-types';
 import React from 'react';
+import { Feather } from '@expo/vector-icons';
 
-import gStyle from '../../constants/gStyle';
 import BaseBottomTabNavigatorLayout from '../../layouts/BaseBottomTabNavigatorLayout';
 import colors from '../../constants/colors';
+import sharedStyles from '../../constants/sharedStyles';
 
 const styles = StyleSheet.create({
   container: {
-    alignItems: 'center',
     flex: 1,
-    justifyContent: 'center',
+  },
+  headerContainer: {
+    flexDirection: 'row',
+    marginTop: 20,
+  },
+  headerTextContainer: {
+    marginLeft: 20
+  },
+  image: {
+    width: 150,
+    height: 150,
+    borderRadius: 8,
+  },
+  categoryText: {
+    ...sharedStyles.textWhiteBold12,
+    marginVertical: 20,
+  },
+  buttonContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  hash: {
+    marginRight: 10,
   },
   text: {
-    ...gStyle.textLarsBold18,
-    color: colors.white,
+    ...sharedStyles.text14,
+    color: colors.lightGray,
   },
 });
 
-export default function BaseScreen({ currentBaseId, goToChat }) {
+export default function BaseScreen({ currentBaseId, baseEntities, goToChat }) {
+  const base = baseEntities[currentBaseId];
   return (
     <BaseBottomTabNavigatorLayout>
       <View style={styles.container}>
-        <Text style={[styles.text]}>BaseScreen</Text>
-        <Text style={[styles.text]}>{currentBaseId}</Text>
-        <TouchableOpacity style={{ padding: 20 }} onPress={() => goToChat()}>
-          <Text style={gStyle.listText}>Chats</Text>
+        <View style={styles.headerContainer}>
+          <Image source={{ uri: base.imageUrl }} style={styles.image} />
+          <View style={styles.headerTextContainer}>
+            <Text style={sharedStyles.textWhiteBold20}>{base.name}</Text>
+            <Text style={styles.text}>score: {base.score}</Text>
+          </View>
+        </View>
+        <Text style={styles.categoryText}>Channels</Text>
+        <TouchableOpacity style={styles.buttonContainer} onPress={() => goToChat()}>
+          <Feather style={styles.hash} name="hash" size={18} color={colors.white} />
+          <Text style={styles.text}>General</Text>
         </TouchableOpacity>
+        <Text style={styles.categoryText}>Direct Messages</Text>
       </View>
     </BaseBottomTabNavigatorLayout>
   );

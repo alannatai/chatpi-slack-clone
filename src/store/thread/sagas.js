@@ -39,7 +39,7 @@ function* catchUpMessagesForBase() {
           );
         },
       },
-      `/v1/chats/${chatId}/messages?query_type=after&inserted_at=${insertedAt}`,
+      `/v1/chats/${chatId}/messages?after=${insertedAt}`,
     );
   } else {
     const latestMessage = yield select(threadSelectors.latestMessage(chatId));

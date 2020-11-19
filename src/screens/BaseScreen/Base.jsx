@@ -8,6 +8,7 @@ import { baseSelectors } from '../../store/base/ducks';
 function BaseScreenContainer(props) {
   const _props = {
     currentBaseId: props.currentBaseId,
+    baseEntities: props.baseEntities,
   };
 
   const methods = {
@@ -23,6 +24,7 @@ BaseScreenContainer.propTypes = {
 
 const mapStateToProps = (state) => ({
   currentBaseId: baseSelectors.currentBaseId(state),
+  baseEntities: baseSelectors.baseEntities(state),
 });
 
 export default connect(mapStateToProps)(BaseScreenContainer);

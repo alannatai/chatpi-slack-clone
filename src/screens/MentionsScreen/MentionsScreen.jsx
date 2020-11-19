@@ -1,4 +1,5 @@
 import { Text, View } from 'react-native';
+import PropTypes from 'prop-types';
 import React from 'react';
 
 import gStyle from '../../constants/gStyle';
@@ -15,8 +16,6 @@ export default function MentionsScreen() {
   );
 }
 
-MentionsScreen.propTypes = {};
-
 const styles = {
   container: {
     alignItems: 'center',
@@ -28,3 +27,5 @@ const styles = {
     color: colors.white,
   },
 };
+
+MentionsScreen.propTypes = {};

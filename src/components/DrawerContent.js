@@ -3,18 +3,17 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { baseSelectors, baseActions } from '../store/base/ducks';
 
-import gStyle from '../constants/gStyle';
 import colors from '../constants/colors';
 import sharedStyles from '../constants/sharedStyles';
 
 const styles = {
   drawerContainer: {
-    backgroundColor: colors.white,
+    backgroundColor: colors.black85,
     flex: 1,
     flexDirection: 'row',
   },
   drawerNavContainer: {
-    backgroundColor: colors.lightGray,
+    backgroundColor: colors.offBlack,
     paddingTop: '40%',
   },
   baseLinkContainer: {
@@ -35,7 +34,7 @@ const styles = {
     borderRadius: 8,
   },
   selectedImageBorder: {
-    borderColor: '#555',
+    borderColor: '#888',
     borderWidth: 3,
     borderRadius: 12,
   },
@@ -44,15 +43,18 @@ const styles = {
     paddingTop: '40%',
   },
   settingsSection: {
-    borderBottomColor: colors.lightGray,
+    borderBottomColor: colors.darkGray,
     borderBottomWidth: 1,
     paddingHorizontal: 20,
-  }
+  },
 };
 
-function DrawerContent({ bases, baseEntities, changeCurrentBase, currentBaseId }) { 
+function DrawerContent({ bases, baseEntities, changeCurrentBase, currentBaseId }) {
   const selectedBase = baseEntities[currentBaseId];
-  
+
+  if (!selectedBase) {
+    return <></>;
+  }
   return (
     <View style={styles.drawerContainer}>
       <View style={styles.drawerNavContainer}>
@@ -70,14 +72,14 @@ function DrawerContent({ bases, baseEntities, changeCurrentBase, currentBaseId }
               <View style={[styles.baseImageContainer, selectedBase === base ? styles.selectedImageBorder : null]}>
                 <Image source={{ uri: base.imageUrl }} style={styles.image} />
               </View>
-              <Text style={sharedStyles.text12}>{base.name}</Text>
+              <Text style={sharedStyles.textWhite12}>{base.name}</Text>
             </TouchableOpacity>
           );
         })}
       </View>
       <View style={styles.selectedBaseSettingsContainer}>
         <View style={styles.settingsSection}>
-          <Text style={{ ...sharedStyles.textBold20, marginBottom: 3 }}>{selectedBase.name}</Text>
+          <Text style={{ ...sharedStyles.textWhiteBold20, marginBottom: 3 }}>{selectedBase.name}</Text>
           <Text style={{ ...sharedStyles.textGray, marginBottom: 20 }}>{selectedBase.name}.slack.com</Text>
         </View>
       </View>

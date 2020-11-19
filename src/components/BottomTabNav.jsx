@@ -10,7 +10,6 @@ export default function BottomTabNav({ state, descriptors, navigation }) {
         const { options } = descriptors[route.key];
         const label = options.tabBarLabel;
         const Icon = options.tabBarIcon;
-
         const isFocused = state.index === index;
 
         const onPress = () => {
@@ -23,23 +22,11 @@ export default function BottomTabNav({ state, descriptors, navigation }) {
             navigation.navigate(route.name);
           }
         };
-
-        const onLongPress = () => {
-          navigation.emit({
-            type: 'tabLongPress',
-            target: route.key,
-          });
-        };
-
         return (
           <TouchableOpacity
             key={label}
-            accessibilityRole="button"
-            accessibilityState={isFocused ? { selected: true } : {}}
-            accessibilityLabel={options.tabBarAccessibilityLabel}
             testID={options.tabBarTestID}
             onPress={onPress}
-            onLongPress={onLongPress}
             style={styles.buttonContainer}
           >
             <Icon color={isFocused ? colors.white : colors.gray} size={24} />
@@ -64,10 +51,10 @@ const styles = {
     borderTopWidth: 1,
   },
   buttonContainer: {
-    alignItems: 'center'
+    alignItems: 'center',
   },
   buttonText: {
-    marginTop: 4, 
+    marginTop: 4,
     fontSize: 12,
-  }
+  },
 };

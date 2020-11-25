@@ -41,12 +41,12 @@ const mockDrawerButtons = [
 
 const styles = {
   drawerContainer: {
-    backgroundColor: colors.white,
+    backgroundColor: colors.black85,
     flex: 1,
     flexDirection: 'row',
   },
   drawerNavContainer: {
-    backgroundColor: colors.lightGray,
+    backgroundColor: colors.darkGray3,
     paddingTop: '40%',
   },
   baseLinkContainer: {
@@ -67,7 +67,7 @@ const styles = {
     borderRadius: 8,
   },
   selectedImageBorder: {
-    borderColor: '#555',
+    borderColor: colors.gray,
     borderWidth: 3,
     borderRadius: 12,
   },
@@ -76,7 +76,7 @@ const styles = {
     paddingTop: '40%',
   },
   settingsSection: {
-    borderBottomColor: colors.lightGray,
+    borderBottomColor: colors.darkGray4,
     borderBottomWidth: 1,
     paddingHorizontal: 20,
     paddingVertical: 15,
@@ -103,7 +103,7 @@ function DrawerContent({ bases, baseEntities, changeCurrentBase, currentBaseId }
               <View style={[styles.baseImageContainer, selectedBase === base ? styles.selectedImageBorder : null]}>
                 <Image source={{ uri: base.imageUrl }} style={styles.image} />
               </View>
-              <Text style={sharedStyles.text12}>{base.name}</Text>
+              <Text style={sharedStyles.textLightGray12}>{base.name}</Text>
             </TouchableOpacity>
           );
         })}

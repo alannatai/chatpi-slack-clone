@@ -11,6 +11,10 @@ export default {
     fontSize: 20,
     fontWeight: '700',
   },
+  textLightGray12: {
+    fontSize: 12,
+    color: colors.lightGray,
+  },
   textLightGray14: {
     fontSize: 14,
     color: colors.lightGray,
@@ -18,11 +22,21 @@ export default {
   textGray: {
     color: colors.gray,
   },
+  textWhite12: {
+    fontSize: 12,
+    color: colors.white,
+  },
   textWhite20: {
-    ...gStyle.textLarsBold20,
+    fontSize: 20,
+    fontWeight: '600',
+  },
+  textWhiteBold12: {
+    fontSize: 12,
+    color: colors.white,
+    fontWeight: '600',
   },
   textWhiteBold20: {
-    ...gStyle.textLarsBold20,
+    fontSize: 20,
     color: colors.white,
     fontWeight: '600',
   },

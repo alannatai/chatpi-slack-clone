@@ -47,7 +47,7 @@ const styles = {
     justifyContent: 'space-around',
     paddingTop: 15,
     backgroundColor: colors.black85,
-    borderTopColor: colors.darkGray,
+    borderTopColor: colors.darkGray4,
     borderTopWidth: 1,
   },
   buttonContainer: {

@@ -9,7 +9,7 @@ function BaseScreenContainer(props) {
   const _props = {
     currentBaseId: props.currentBaseId,
     baseEntities: props.baseEntities,
-    userEntities: props.userEntities
+    userEntities: props.userEntities,
   };
 
   const methods = {

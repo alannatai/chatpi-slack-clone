@@ -2499,10 +2499,10 @@
     "@types/yargs" "^15.0.0"
     chalk "^3.0.0"
 
-"@knotfive/chatpi-client-js@^0.0.27":
-  version "0.0.27"
-  resolved "https://registry.yarnpkg.com/@knotfive/chatpi-client-js/-/chatpi-client-js-0.0.27.tgz#febccf18315f33abb91a5804c880eb0acdbc069a"
-  integrity sha512-x9TbVdJQFVqrWgH6q945B87Q/+wx8ltjypMFNEZcMr2j6ai3ON1LfNj8yWzYdEBXwEesNnpzEXbjEIWULU3nGg==
+"@knotfive/chatpi-client-js@^0.0.29":
+  version "0.0.29"
+  resolved "https://registry.yarnpkg.com/@knotfive/chatpi-client-js/-/chatpi-client-js-0.0.29.tgz#2abb8e2b3ac52742567f017ffc1f901d5fb1cc8f"
+  integrity sha512-sE/pmOfzyrqx+vBndNlLZKzjE2DbM2z+p8B6w8HrvhuR6IBGPqhGlkXmHgwZO9QlAffwt2XZwrOXDhAH7MC9JQ==
   dependencies:
     phoenix "^1.5.4"
 
@@ -8762,6 +8762,11 @@ react-native-elements@^0.19.1:
     lodash.times "^4.3.2"
     opencollective "^1.0.3"
     prop-types "^15.5.8"
+
+react-native-floating-action@^1.21.0:
+  version "1.21.0"
+  resolved "https://registry.yarnpkg.com/react-native-floating-action/-/react-native-floating-action-1.21.0.tgz#cb1e8349fec5b9aed06c8053c07372822c64b22f"
+  integrity sha512-ozd/iaJunrEYc4eGUWkP+4UI8yoIL0nQsToI3hnJRste/3LPhBkyu0eG3RTjc6aFY+q++JpRmgO469Ck8jJOwg==
 
 react-native-gesture-handler@~1.7.0:
   version "1.7.0"

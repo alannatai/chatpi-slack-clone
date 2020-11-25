@@ -10,7 +10,7 @@ import {
 } from 'redux-saga/effects';
 import { Auth } from 'aws-amplify';
 import { eventChannel as EventChannel } from 'redux-saga';
-import { Connection } from '@knotfive/chatpi-client-js/src/chatpi-client';
+import { Connection } from '@knotfive/chatpi-client-js/dist/chatpi-client.modern';
 
 import { baseSelectors } from '../base/ducks';
 import { getCurrentChatId } from '../base/helpers';

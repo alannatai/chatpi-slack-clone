@@ -13,8 +13,8 @@ export default {
   white10: 'rgba(255, 255, 255, 0.1)',
 
   // slack colors
-  blue: '#36c5f0',
-  green: '#2eb67d',
+  blue: '#28CCC4',
+  green: '#1DB87E',
   red: '#e01e5a',
   yellow: '#ecb22e',
 

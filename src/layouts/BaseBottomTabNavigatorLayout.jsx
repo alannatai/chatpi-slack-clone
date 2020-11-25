@@ -11,8 +11,7 @@ import colors from '../constants/colors';
 import { StylePropType } from '../utils/types';
 
 const styles = {
-  scrollView: {
-    paddingBottom: 20,
+  container: {
     flex: 1,
   },
   contentContainer: {
@@ -32,16 +31,15 @@ export default function BaseBottomTabNavigatorLayout({
   ...props
 }) {
   const navigation = useNavigation();
-  const ContainerView = props.disableScroll ? View : ScrollView;
   return (
-    <ContainerView
+    <View
       style={[
-        styles.scrollView,
+        styles.container,
         { backgroundColor: colors.black85 },
         props.containerStyle,
       ]}
     >
-      <SafeAreaView>
+      <SafeAreaView style={styles.contentContainer}>
         <View style={gStyle.containerNavBlocks}>
           <TouchableOpacity
             activeOpacity={gStyle.activeOpacity}
@@ -54,9 +52,9 @@ export default function BaseBottomTabNavigatorLayout({
             <SvgSlackLogo />
           </TouchableOpacity>
         </View>
-        <View style={styles.contentContainer}>{props.children}</View>
+        {props.children}
       </SafeAreaView>
-    </ContainerView>
+    </View>
   );
 }
 

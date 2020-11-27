@@ -85,6 +85,7 @@ export default function BaseScreen({ currentBaseId, baseEntities, userEntities, 
       </View>
       {mockChannels.map(channel => (
         <LogoTextLinkItem
+          key={channel}
           icon={<Feather style={styles.icon} name='hash' size={18} color={colors.white} />}
           text={channel}
           textStyle={sharedStyles.textLightGray14}

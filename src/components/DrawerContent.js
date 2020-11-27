@@ -116,6 +116,7 @@ function DrawerContent({ bases, baseEntities, changeCurrentBase, currentBaseId }
         <View style={styles.settingsSection}>
           {mockDrawerButtons.slice(0, 3).map(button => (
             <LogoTextLinkItem
+              key={button.name}
               icon={button.icon}
               text={button.name}
               textStyle={sharedStyles.textLightGray14}
@@ -125,6 +126,7 @@ function DrawerContent({ bases, baseEntities, changeCurrentBase, currentBaseId }
         <View style={styles.settingsSection}>
           {mockDrawerButtons.slice(3, 5).map(button => (
             <LogoTextLinkItem
+              key={button.name}
               icon={button.icon}
               text={button.name}
               textStyle={sharedStyles.textLightGray14}
@@ -134,6 +136,7 @@ function DrawerContent({ bases, baseEntities, changeCurrentBase, currentBaseId }
         <View style={{ ...styles.settingsSection, borderBottomWidth: 0 }}>
           {mockDrawerButtons.slice(5, 6).map(button => (
             <LogoTextLinkItem
+              key={button.name}
               icon={button.icon}
               text={button.name}
               textStyle={sharedStyles.textLightGray14}

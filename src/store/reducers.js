@@ -3,6 +3,7 @@ import { combineReducers } from 'redux';
 
 import { ignoreOutside } from '../utils/reduxHelpers';
 import baseReducer, { baseNamespace } from './base/ducks';
+import cachedProfilesReducer, { cachedProfilesNamespace } from './cachedProfiles/ducks';
 import appReducer, { appConstants, appNamespace } from './app/ducks';
 import alertReducer, { alertNamespace } from './alert/ducks';
 import errorReducer, { errorNamespace } from './error/ducks';
@@ -14,6 +15,7 @@ export const signedInReducers = {
   // ---plop_append_reducer---
   [threadNamespace]: threadReducer,
   [baseNamespace]: baseReducer,
+  [cachedProfilesNamespace]: cachedProfilesReducer,
 };
 
 export default function createReducer(asyncReducers) {

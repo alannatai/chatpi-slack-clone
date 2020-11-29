@@ -110,7 +110,7 @@ function DrawerContent({ bases, baseEntities, changeCurrentBase, currentBaseId }
       </View>
       <View style={styles.selectedBaseSettingsContainer}>
         <View style={{ ...styles.settingsSection, paddingVertical: 0 }}>
-          <Text style={{ ...sharedStyles.textWhiteBold20, marginBottom: 3, marginTop: 20}}>{selectedBase.name}</Text>
+          <Text style={{ ...sharedStyles.textWhiteBold20, marginBottom: 3, marginTop: 20 }}>{selectedBase.name}</Text>
           <Text style={{ ...sharedStyles.textGray, marginBottom: 20 }}>{selectedBase.name}.touchbase.com</Text>
         </View>
         <View style={styles.settingsSection}>

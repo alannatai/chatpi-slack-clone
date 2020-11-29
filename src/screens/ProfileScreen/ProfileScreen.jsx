@@ -17,7 +17,9 @@ const styles = StyleSheet.create({
   },
 });
 
-export default function ProfileScreen(props) {
+export default function ProfileScreen({ myProfile }) {
+  console.log('myProfile', myProfile);
+  //console.log(getUser(userEntities));
   return (
     <BaseBottomTabNavigatorLayout>
       <View style={styles.container}>

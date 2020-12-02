@@ -56,6 +56,10 @@ export default {
   },
 
   // Containers
+  containerDark: {
+    backgroundColor: colors.black85,
+    flex: 1,
+  },
   logoTextLinkContainer: {
     flexDirection: 'row',
     alignItems: 'center',

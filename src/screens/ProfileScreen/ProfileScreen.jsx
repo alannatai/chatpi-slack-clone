@@ -45,12 +45,12 @@ export default function ProfileScreen({ myProfile }) {
     {
       name: 'Set yourself as away',
       icon: <Entypo name='notifications-off' size={18} color={colors.white} />,
-      onPress: () => console.log('do not disturb'),
+      onPress: () => console.log('away'),
     },
     {
       name: 'Saved items',
       icon: <Feather name='bookmark' size={18} color={colors.white} />,
-      onPress: () => console.log('do not disturb'),
+      onPress: () => console.log('saved items'),
     },
     {
       name: 'View profile',
@@ -60,12 +60,12 @@ export default function ProfileScreen({ myProfile }) {
     {
       name: 'Notifications',
       icon: <Entypo name='notification' size={18} color={colors.white} />,
-      onPress: () => console.log('do not disturb'),
+      onPress: () => console.log('notifications'),
     },
     {
       name: 'Preferences',
       icon: <Feather name='settings' size={18} color={colors.white} />,
-      onPress: () => console.log('do not disturb'),
+      onPress: () => console.log('preferences'),
     },
   ];
 

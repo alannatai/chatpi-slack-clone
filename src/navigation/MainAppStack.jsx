@@ -4,6 +4,7 @@ import { createNativeStackNavigator } from 'react-native-screens/native-stack';
 
 import BaseChatSwipeNavigator from './BaseChatSwipeNavigator';
 import ChatActions from '../screens/ChatActionsScreen/ChatActions';
+import ProfileView from '../screens/ProfileViewScreen/ProfileView';
 import { baseSelectors } from '../store/base/ducks';
 import ModalRoutes from './ModalRoutes';
 import Notifications from '../screens/NotificationsScreen';
@@ -26,6 +27,12 @@ export default function MainAppStack() {
         name="ChatActions"
         title="ChatActions"
         component={ChatActions}
+        options={{ stackPresentation: 'modal' }}
+      />
+      <Stack.Screen
+        name="ProfileView"
+        title="ProfileView"
+        component={ProfileView}
         options={{ stackPresentation: 'modal' }}
       />
       <Stack.Screen

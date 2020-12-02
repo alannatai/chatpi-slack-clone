@@ -4,7 +4,6 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { Feather, AntDesign } from '@expo/vector-icons';
 
-import gStyle from '../../constants/gStyle';
 import BaseBottomTabNavigatorLayout from '../../layouts/BaseBottomTabNavigatorLayout';
 import colors from '../../constants/colors';
 import sharedStyles from '../../constants/sharedStyles';
@@ -52,10 +51,6 @@ const styles = StyleSheet.create({
     ...sharedStyles.textWhiteBold12,
     marginVertical: 10,
   },
-  text: {
-    ...gStyle.textLarsBold18,
-    color: colors.white,
-  },
 });
 
 export default function BaseScreen({ currentBaseId, baseEntities, userEntities, goToChat }) {
@@ -88,7 +83,7 @@ export default function BaseScreen({ currentBaseId, baseEntities, userEntities, 
           key={channel}
           icon={<Feather style={styles.icon} name='hash' size={18} color={colors.white} />}
           text={channel}
-          textStyle={sharedStyles.textLightGray14}
+          textStyle={sharedStyles.textLightGray16}
           onPress={() => goToChat()}
         />
       ))}
@@ -105,7 +100,7 @@ export default function BaseScreen({ currentBaseId, baseEntities, userEntities, 
         return (
           <TouchableOpacity style={sharedStyles.logoTextLinkContainer} onPress={() => goToChat()} key={member.id}>
             <View style={{ ...sharedStyles.statusOnline, marginLeft: 5, marginRight: 15 }} />
-            <Text style={sharedStyles.textLightGray14}>{member.username}</Text>
+            <Text style={sharedStyles.textLightGray16}>{member.username}</Text>
           </TouchableOpacity>
         );
       })}

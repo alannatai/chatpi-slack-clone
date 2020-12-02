@@ -19,8 +19,12 @@ export default {
     fontSize: 14,
     color: colors.lightGray,
   },
+  textLightGray16: {
+    fontSize: 16,
+    color: colors.lightGray,
+  },
   textGray: {
-    color: colors.gray,
+    color: colors.gray9,
   },
   textWhite12: {
     fontSize: 12,
@@ -59,6 +63,18 @@ export default {
   },
 
   // Elements
+  textInput: {
+    borderWidth: 1,
+    borderColor: colors.gray4,
+    padding: 15,
+    borderRadius: 8,
+  },
+  settingsSection: {
+    borderBottomColor: colors.gray4,
+    borderBottomWidth: 1,
+    paddingHorizontal: 20,
+    paddingVertical: 20,
+  },
   statusCircle: {
     height: 8,
     width: 8,

@@ -19,9 +19,10 @@ export default {
 
   blueSend: '#2e629e',
   lightGray: '#EEE',
-  gray: '#999',
-  darkGray4: '#444',
-  darkGray3: '#333',
+  gray9: '#999',
+  gray7: '#777',
+  gray4: '#444',
+  gray3: '#333',
   grayIcon: '#616061',
   grayLine: '#c6c6c6',
   grayTime: '#868686',

@@ -5,6 +5,7 @@ import { retryHoc } from '../utils/reduxHelpers';
 import { appConstants } from './app/ducks';
 import threadSaga from './thread/sagas';
 import baseSaga from './base/sagas';
+import cachedProfilesSaga from './cachedProfiles/sagas';
 
 const MAX_TRIES = 3;
 const RETRY_DELAY = 200;
@@ -18,6 +19,7 @@ const signedInSagas = [
   // ---plop_append_saga---
   baseSaga,
   threadSaga,
+  cachedProfilesSaga,
   // appSaga,
   // pushTokenSaga,
   // creditConsentSaga,

@@ -12,15 +12,17 @@ export default {
   white10: 'rgba(255, 255, 255, 0.1)',
 
   // slack colors
-  blue: '#36c5f0',
-  green: '#2eb67d',
+  blue: '#28CCC4',
+  green: '#1DB87E',
   red: '#e01e5a',
   yellow: '#ecb22e',
 
   blueSend: '#2e629e',
   lightGray: '#EEE',
-  gray: '#999',
-  darkGray: '#444',
+  gray9: '#999',
+  gray7: '#777',
+  gray4: '#444',
+  gray3: '#333',
   grayIcon: '#616061',
   grayLine: '#c6c6c6',
   grayTime: '#868686',

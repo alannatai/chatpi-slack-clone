@@ -1,11 +1,28 @@
 import { put, select, fork } from 'redux-saga/effects';
 
+import apiService, { apiCall } from '../../services/api/apiService';
 import { watchActionsLatest } from '../../utils/watchActions';
 import {
   cachedProfilesConstants,
   cachedProfilesActions,
   cachedProfilesSelectors,
 } from './ducks';
+
+function* getUser() {
+  yield apiCall(
+    {
+      call: apiService.core.get,
+      *onSuccess(response) {
+        yield put(
+          cachedProfilesActions.receiveUser({
+            myProfile: response,
+          }),
+        );
+      },
+    },
+    '/v1/user/me',
+  );
+}
 
 function* fetchPerson({ id }) {
   return { profile: undefined };
@@ -28,8 +45,9 @@ export function* getCachedProfile({ id }) {
 }
 
 export default function* cachedProfilesSaga() {
-  yield put(cachedProfilesActions.cleanExpired());
-  yield fork(watchActionsLatest, [
-    [cachedProfilesConstants.GET_PROFILE, getCachedProfile],
-  ]);
+  // yield put(cachedProfilesActions.cleanExpired());
+  // yield fork(watchActionsLatest, [
+  //   [cachedProfilesConstants.GET_PROFILE, getCachedProfile],
+  // ]);
+  yield getUser();
 }

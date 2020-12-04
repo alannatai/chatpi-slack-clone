@@ -29,8 +29,8 @@ export default function BottomTabNav({ state, descriptors, navigation }) {
             onPress={onPress}
             style={styles.buttonContainer}
           >
-            <Icon color={isFocused ? colors.white : colors.gray} size={24} />
-            <Text style={{ color: isFocused ? colors.white : colors.gray, ...styles.buttonText }}>
+            <Icon color={isFocused ? colors.white : colors.gray9} size={24} />
+            <Text style={{ color: isFocused ? colors.white : colors.gray9, ...styles.buttonText }}>
               {label}
             </Text>
           </TouchableOpacity>
@@ -47,7 +47,7 @@ const styles = {
     justifyContent: 'space-around',
     paddingTop: 15,
     backgroundColor: colors.black85,
-    borderTopColor: colors.darkGray,
+    borderTopColor: colors.gray4,
     borderTopWidth: 1,
   },
   buttonContainer: {

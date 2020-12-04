@@ -1,20 +1,52 @@
 import { View, TouchableOpacity, Text, Image } from 'react-native';
 import React from 'react';
 import { connect } from 'react-redux';
+import { Feather, AntDesign, FontAwesome } from '@expo/vector-icons';
 import { baseSelectors, baseActions } from '../store/base/ducks';
 
-import gStyle from '../constants/gStyle';
 import colors from '../constants/colors';
 import sharedStyles from '../constants/sharedStyles';
+import LogoTextLinkItem from './LogoTextLinkItem';
+
+const mockDrawerButtons = [
+  {
+    name: 'Channel browser',
+    icon: <Feather name='hash' size={18} color={colors.white} />,
+  },
+  {
+    name: 'People',
+    icon: <AntDesign name='contacts' size={18} color={colors.white} />,
+  },
+  {
+    name: 'Files',
+    icon: <FontAwesome name='files-o' size={18} color={colors.white} />,
+  },
+  {
+    name: 'Invite people',
+    icon: <AntDesign name='adduser' size={18} color={colors.white} />,
+  },
+  {
+    name: 'Help',
+    icon: <AntDesign name='questioncircleo' size={18} color={colors.white} />,
+  },
+  {
+    name: 'Preferences',
+    icon: <Feather name='settings' size={18} color={colors.white} />,
+  },
+  {
+    name: 'Sign out of ',
+    icon: <Feather name='log-out' size={18} color={colors.white} />,
+  },
+];
 
 const styles = {
   drawerContainer: {
-    backgroundColor: colors.white,
+    backgroundColor: colors.black85,
     flex: 1,
     flexDirection: 'row',
   },
   drawerNavContainer: {
-    backgroundColor: colors.lightGray,
+    backgroundColor: colors.gray3,
     paddingTop: '40%',
   },
   baseLinkContainer: {
@@ -35,7 +67,7 @@ const styles = {
     borderRadius: 8,
   },
   selectedImageBorder: {
-    borderColor: '#555',
+    borderColor: colors.gray9,
     borderWidth: 3,
     borderRadius: 12,
   },
@@ -43,16 +75,11 @@ const styles = {
     flex: 1,
     paddingTop: '40%',
   },
-  settingsSection: {
-    borderBottomColor: colors.lightGray,
-    borderBottomWidth: 1,
-    paddingHorizontal: 20,
-  }
 };
 
 function DrawerContent({ bases, baseEntities, changeCurrentBase, currentBaseId }) { 
   const selectedBase = baseEntities[currentBaseId];
-  
+
   return (
     <View style={styles.drawerContainer}>
       <View style={styles.drawerNavContainer}>
@@ -70,15 +97,50 @@ function DrawerContent({ bases, baseEntities, changeCurrentBase, currentBaseId }
               <View style={[styles.baseImageContainer, selectedBase === base ? styles.selectedImageBorder : null]}>
                 <Image source={{ uri: base.imageUrl }} style={styles.image} />
               </View>
-              <Text style={sharedStyles.text12}>{base.name}</Text>
+              <Text style={sharedStyles.textLightGray12}>{base.name}</Text>
             </TouchableOpacity>
           );
         })}
       </View>
       <View style={styles.selectedBaseSettingsContainer}>
-        <View style={styles.settingsSection}>
-          <Text style={{ ...sharedStyles.textBold20, marginBottom: 3 }}>{selectedBase.name}</Text>
-          <Text style={{ ...sharedStyles.textGray, marginBottom: 20 }}>{selectedBase.name}.slack.com</Text>
+        <View style={{ ...sharedStyles.settingsSection, paddingVertical: 0 }}>
+          <Text style={{ ...sharedStyles.textWhiteBold20, marginBottom: 3, marginTop: 20 }}>{selectedBase.name}</Text>
+          <Text style={{ ...sharedStyles.textGray, marginBottom: 20 }}>{selectedBase.name}.touchbase.com</Text>
+        </View>
+        <View style={sharedStyles.settingsSection}>
+          {mockDrawerButtons.slice(0, 3).map(button => (
+            <LogoTextLinkItem
+              key={button.name}
+              icon={button.icon}
+              text={button.name}
+              textStyle={sharedStyles.textLightGray14}
+            />
+          ))}
+        </View>
+        <View style={sharedStyles.settingsSection}>
+          {mockDrawerButtons.slice(3, 5).map(button => (
+            <LogoTextLinkItem
+              key={button.name}
+              icon={button.icon}
+              text={button.name}
+              textStyle={sharedStyles.textLightGray14}
+            />
+          ))}
+        </View>
+        <View style={{ ...sharedStyles.settingsSection, borderBottomWidth: 0 }}>
+          {mockDrawerButtons.slice(5, 6).map(button => (
+            <LogoTextLinkItem
+              key={button.name}
+              icon={button.icon}
+              text={button.name}
+              textStyle={sharedStyles.textLightGray14}
+            />
+          ))}
+          <LogoTextLinkItem
+            icon={<Feather name='log-out' size={18} color={colors.white} />}
+            text={`Sign out of ${selectedBase.name}`}
+            textStyle={sharedStyles.textLightGray14}
+          />
         </View>
       </View>
     </View>

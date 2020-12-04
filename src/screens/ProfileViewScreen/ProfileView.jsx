@@ -2,20 +2,20 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 import { NavigationPropType } from '../../utils/types';
-import ProfileScreen from './ProfileScreen';
+import ProfileViewScreen from './ProfileViewScreen';
 import { cachedProfilesSelectors } from '../../store/cachedProfiles/ducks';
 
-function ProfileScreenContainer(props) {
+function ProfileViewScreenContainer(props) {
   const _props = {
     myProfile: props.myProfile,
   };
 
   const methods = {};
 
-  return <ProfileScreen {...{ ..._props, ...methods }} />;
+  return <ProfileViewScreen {...{ ..._props, ...methods }} />;
 }
 
-ProfileScreenContainer.propTypes = {
+ProfileViewScreenContainer.propTypes = {
   navigation: NavigationPropType,
 };
 
@@ -23,4 +23,4 @@ const mapStateToProps = (state) => ({
   myProfile: cachedProfilesSelectors.myProfile(state),
 });
 
-export default connect(mapStateToProps)(ProfileScreenContainer);
+export default connect(mapStateToProps)(ProfileViewScreenContainer);

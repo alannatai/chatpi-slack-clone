@@ -7,7 +7,7 @@ function FloatingActionButton({ onPress, icon }) {
     <FloatingAction
       showBackground={false}
       onPressMain={onPress}
-      color={colors.gray}
+      color={colors.gray9}
       floatingIcon={icon}
       distanceToEdge={15}
       listenKeyboard

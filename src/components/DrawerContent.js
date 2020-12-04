@@ -46,7 +46,7 @@ const styles = {
     flexDirection: 'row',
   },
   drawerNavContainer: {
-    backgroundColor: colors.darkGray3,
+    backgroundColor: colors.gray3,
     paddingTop: '40%',
   },
   baseLinkContainer: {
@@ -67,7 +67,7 @@ const styles = {
     borderRadius: 8,
   },
   selectedImageBorder: {
-    borderColor: colors.gray,
+    borderColor: colors.gray9,
     borderWidth: 3,
     borderRadius: 12,
   },
@@ -75,17 +75,11 @@ const styles = {
     flex: 1,
     paddingTop: '40%',
   },
-  settingsSection: {
-    borderBottomColor: colors.darkGray4,
-    borderBottomWidth: 1,
-    paddingHorizontal: 20,
-    paddingVertical: 15,
-  },
 };
 
 function DrawerContent({ bases, baseEntities, changeCurrentBase, currentBaseId }) { 
   const selectedBase = baseEntities[currentBaseId];
-  
+
   return (
     <View style={styles.drawerContainer}>
       <View style={styles.drawerNavContainer}>
@@ -109,11 +103,11 @@ function DrawerContent({ bases, baseEntities, changeCurrentBase, currentBaseId }
         })}
       </View>
       <View style={styles.selectedBaseSettingsContainer}>
-        <View style={{ ...styles.settingsSection, paddingVertical: 0 }}>
-          <Text style={{ ...sharedStyles.textWhiteBold20, marginBottom: 3, marginTop: 20}}>{selectedBase.name}</Text>
+        <View style={{ ...sharedStyles.settingsSection, paddingVertical: 0 }}>
+          <Text style={{ ...sharedStyles.textWhiteBold20, marginBottom: 3, marginTop: 20 }}>{selectedBase.name}</Text>
           <Text style={{ ...sharedStyles.textGray, marginBottom: 20 }}>{selectedBase.name}.touchbase.com</Text>
         </View>
-        <View style={styles.settingsSection}>
+        <View style={sharedStyles.settingsSection}>
           {mockDrawerButtons.slice(0, 3).map(button => (
             <LogoTextLinkItem
               key={button.name}
@@ -123,7 +117,7 @@ function DrawerContent({ bases, baseEntities, changeCurrentBase, currentBaseId }
             />
           ))}
         </View>
-        <View style={styles.settingsSection}>
+        <View style={sharedStyles.settingsSection}>
           {mockDrawerButtons.slice(3, 5).map(button => (
             <LogoTextLinkItem
               key={button.name}
@@ -133,7 +127,7 @@ function DrawerContent({ bases, baseEntities, changeCurrentBase, currentBaseId }
             />
           ))}
         </View>
-        <View style={{ ...styles.settingsSection, borderBottomWidth: 0 }}>
+        <View style={{ ...sharedStyles.settingsSection, borderBottomWidth: 0 }}>
           {mockDrawerButtons.slice(5, 6).map(button => (
             <LogoTextLinkItem
               key={button.name}

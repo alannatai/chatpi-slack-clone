@@ -22,6 +22,7 @@ export const authStateToActionDict = {
 
 const { initialState, selectors } = createSelectorsAndState(appNamespace, {
   signedIn: false,
+  userProfile: null,
 });
 
 export const appSelectors = {
@@ -38,7 +39,7 @@ const appReducer = produce((state = initialState, action) => {
     }
     case c.SIGNED_OUT: {
       state.signedOut = true;
-      return state;
+      return initialState;
     }
     default:
       return state;

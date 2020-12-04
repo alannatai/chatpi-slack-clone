@@ -15,6 +15,7 @@ const constArr = [
   'UPDATE_PROFILE',
   'TOGGLE_BLOCK_USER',
   'CLEAN_EXPIRED',
+  'RECEIVE_USER',
 ];
 
 /**
@@ -33,7 +34,7 @@ export const {
 const { initialState, selectors } = createSelectorsAndState(
   cachedProfilesNamespace,
   {
-    myProfile: {},
+    myProfile: null,
     cachedProfilesList: [],
     cachedProfilesEntities: {},
   },
@@ -56,6 +57,10 @@ const c = cachedProfilesConstants;
 
 const cachedProfilesReducer = produce((state = initialState, action) => {
   switch (action.type) {
+    case c.RECEIVE_USER: {
+      state.myProfile = action.payload.myProfile;
+      return state;
+    }
     case c.CLEAN_EXPIRED:
       return state.filter((v) => v.expires > Math.round(new Date().getTime()));
     case c.UPDATE_IN_PROFILE:

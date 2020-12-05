@@ -73,11 +73,9 @@ export default {
     padding: 15,
     borderRadius: 8,
   },
-  settingsSection: {
+  borderBottomGray: {
     borderBottomColor: colors.gray4,
     borderBottomWidth: 1,
-    paddingHorizontal: 20,
-    paddingVertical: 20,
   },
   statusCircle: {
     height: 8,

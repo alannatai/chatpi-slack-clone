@@ -6,7 +6,7 @@ import { useNavigation } from '@react-navigation/native';
 import sharedStyles from '../../constants/sharedStyles';
 import colors from '../../constants/colors';
 import BaseBottomTabNavigatorLayout from '../../layouts/BaseBottomTabNavigatorLayout';
-import LogoTextLinkItem from '../../components/LogoTextLinkItem';
+import LogoTextLinks from '../../components/LogoTextLinks';
 
 const styles = {
   container: {
@@ -26,44 +26,38 @@ const styles = {
     marginRight: 15,
     borderRadius: 8,
   },
-  settingsSection: {
-    borderTopWidth: 1,
-    borderTopColor: colors.gray4,
-    marginTop: 15,
-    paddingHorizontal: 0,
-  },
 };
 
 export default function ProfileScreen({ myProfile }) {
   const navigation = useNavigation();
   const profileButtons = [
     {
-      name: 'Do not disturb',
+      text: 'Do not disturb',
       icon: <Feather name='bell-off' size={18} color={colors.white} />,
       onPress: () => console.log('do not disturb'),
     },
     {
-      name: 'Set yourself as away',
+      text: 'Set yourself as away',
       icon: <Entypo name='notifications-off' size={18} color={colors.white} />,
       onPress: () => console.log('away'),
     },
     {
-      name: 'Saved items',
+      text: 'Saved items',
       icon: <Feather name='bookmark' size={18} color={colors.white} />,
       onPress: () => console.log('saved items'),
     },
     {
-      name: 'View profile',
+      text: 'View profile',
       icon: <AntDesign name='user' size={18} color={colors.white} />,
       onPress: () => navigation.navigate('ProfileView'),
     },
     {
-      name: 'Notifications',
+      text: 'Notifications',
       icon: <Entypo name='notification' size={18} color={colors.white} />,
       onPress: () => console.log('notifications'),
     },
     {
-      name: 'Preferences',
+      text: 'Preferences',
       icon: <Feather name='settings' size={18} color={colors.white} />,
       onPress: () => console.log('preferences'),
     },
@@ -78,34 +72,25 @@ export default function ProfileScreen({ myProfile }) {
           <Text style={sharedStyles.textLightGray12}>Active</Text>
         </View>
       </View>
-      <TextInput
-        placeholder="What's your status?"
-        onChangeText={(text) => console.log(text)}
-        style={sharedStyles.textInput}
-        placeholderTextColor={colors.gray7}
+      <View style={sharedStyles.borderBottomGray}>
+        <TextInput
+          placeholder="What's your status?"
+          onChangeText={(text) => console.log(text)}
+          style={{ ...sharedStyles.textInput, marginBottom: 15 }}
+          placeholderTextColor={colors.gray7}
+        />
+      </View>
+      <LogoTextLinks
+        buttons={profileButtons.slice(0, 2)}
+        textStyle={sharedStyles.textLightGray14}
+        divider
+        paddingVertical
       />
-      <View style={{ ...sharedStyles.settingsSection, ...styles.settingsSection }}>
-        {profileButtons.slice(0, 2).map(button => (
-          <LogoTextLinkItem
-            key={button.name}
-            icon={button.icon}
-            text={button.name}
-            textStyle={sharedStyles.textLightGray14}
-            onPress={button.onPress}
-          />
-        ))}
-      </View>
-      <View style={{ ...sharedStyles.settingsSection, borderBottomWidth: 0, paddingHorizontal: 0 }}>
-        {profileButtons.slice(2, 6).map(button => (
-          <LogoTextLinkItem
-            key={button.name}
-            icon={button.icon}
-            text={button.name}
-            textStyle={sharedStyles.textLightGray14}
-            onPress={button.onPress}
-          />
-        ))}
-      </View>
+      <LogoTextLinks
+        buttons={profileButtons.slice(2, 6)}
+        textStyle={sharedStyles.textLightGray14}
+        paddingVertical
+      />
     </BaseBottomTabNavigatorLayout>
   );
 }

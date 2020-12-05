@@ -6,38 +6,7 @@ import { baseSelectors, baseActions } from '../store/base/ducks';
 
 import colors from '../constants/colors';
 import sharedStyles from '../constants/sharedStyles';
-import LogoTextLinkItem from './LogoTextLinkItem';
-
-const mockDrawerButtons = [
-  {
-    name: 'Channel browser',
-    icon: <Feather name='hash' size={18} color={colors.white} />,
-  },
-  {
-    name: 'People',
-    icon: <AntDesign name='contacts' size={18} color={colors.white} />,
-  },
-  {
-    name: 'Files',
-    icon: <FontAwesome name='files-o' size={18} color={colors.white} />,
-  },
-  {
-    name: 'Invite people',
-    icon: <AntDesign name='adduser' size={18} color={colors.white} />,
-  },
-  {
-    name: 'Help',
-    icon: <AntDesign name='questioncircleo' size={18} color={colors.white} />,
-  },
-  {
-    name: 'Preferences',
-    icon: <Feather name='settings' size={18} color={colors.white} />,
-  },
-  {
-    name: 'Sign out of ',
-    icon: <Feather name='log-out' size={18} color={colors.white} />,
-  },
-];
+import LogoTextLinks from './LogoTextLinks';
 
 const styles = {
   drawerContainer: {
@@ -79,6 +48,36 @@ const styles = {
 
 function DrawerContent({ bases, baseEntities, changeCurrentBase, currentBaseId }) { 
   const selectedBase = baseEntities[currentBaseId];
+  const mockDrawerButtons = [
+    {
+      text: 'Channel browser',
+      icon: <Feather name='hash' size={18} color={colors.white} />,
+    },
+    {
+      text: 'People',
+      icon: <AntDesign name='contacts' size={18} color={colors.white} />,
+    },
+    {
+      text: 'Files',
+      icon: <FontAwesome name='files-o' size={18} color={colors.white} />,
+    },
+    {
+      text: 'Invite people',
+      icon: <AntDesign name='adduser' size={18} color={colors.white} />,
+    },
+    {
+      text: 'Help',
+      icon: <AntDesign name='questioncircleo' size={18} color={colors.white} />,
+    },
+    {
+      text: 'Preferences',
+      icon: <Feather name='settings' size={18} color={colors.white} />,
+    },
+    {
+      text: `Sign out of ${selectedBase.name}`,
+      icon: <Feather name='log-out' size={18} color={colors.white} />,
+    },
+  ];
 
   return (
     <View style={styles.drawerContainer}>
@@ -103,45 +102,30 @@ function DrawerContent({ bases, baseEntities, changeCurrentBase, currentBaseId }
         })}
       </View>
       <View style={styles.selectedBaseSettingsContainer}>
-        <View style={{ ...sharedStyles.settingsSection, paddingVertical: 0 }}>
+        <View style={{ ...sharedStyles.borderBottomGray, paddingVertical: 0, paddingHorizontal: 20 }}>
           <Text style={{ ...sharedStyles.textWhiteBold20, marginBottom: 3, marginTop: 20 }}>{selectedBase.name}</Text>
           <Text style={{ ...sharedStyles.textGray, marginBottom: 20 }}>{selectedBase.name}.touchbase.com</Text>
         </View>
-        <View style={sharedStyles.settingsSection}>
-          {mockDrawerButtons.slice(0, 3).map(button => (
-            <LogoTextLinkItem
-              key={button.name}
-              icon={button.icon}
-              text={button.name}
-              textStyle={sharedStyles.textLightGray14}
-            />
-          ))}
-        </View>
-        <View style={sharedStyles.settingsSection}>
-          {mockDrawerButtons.slice(3, 5).map(button => (
-            <LogoTextLinkItem
-              key={button.name}
-              icon={button.icon}
-              text={button.name}
-              textStyle={sharedStyles.textLightGray14}
-            />
-          ))}
-        </View>
-        <View style={{ ...sharedStyles.settingsSection, borderBottomWidth: 0 }}>
-          {mockDrawerButtons.slice(5, 6).map(button => (
-            <LogoTextLinkItem
-              key={button.name}
-              icon={button.icon}
-              text={button.name}
-              textStyle={sharedStyles.textLightGray14}
-            />
-          ))}
-          <LogoTextLinkItem
-            icon={<Feather name='log-out' size={18} color={colors.white} />}
-            text={`Sign out of ${selectedBase.name}`}
-            textStyle={sharedStyles.textLightGray14}
-          />
-        </View>
+        <LogoTextLinks
+          paddingHorizontal
+          paddingVertical
+          buttons={mockDrawerButtons.slice(0, 3)}
+          textStyle={sharedStyles.textLightGray14}
+          divider
+        />
+        <LogoTextLinks
+          paddingHorizontal
+          paddingVertical
+          buttons={mockDrawerButtons.slice(3, 5)}
+          textStyle={sharedStyles.textLightGray14}
+          divider
+        />
+        <LogoTextLinks
+          paddingHorizontal
+          paddingVertical
+          buttons={mockDrawerButtons.slice(5, 7)}
+          textStyle={sharedStyles.textLightGray14}
+        />
       </View>
     </View>
   );

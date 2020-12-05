@@ -9,9 +9,8 @@ import colors from '../../constants/colors';
 import sharedStyles from '../../constants/sharedStyles';
 import FloatingActionButton from '../../components/FloatingActionButton';
 import CreateMsgIcon from '../../assets/icons/CreateMsgIcon';
-import LogoTextLinkItem from '../../components/LogoTextLinkItem';
-
-const mockChannels = ['General', 'random', 'Sphere Cube', 'BayBo'];
+import LogoTextLinks from '../../components/LogoTextLinks';
+import BaseMembersList from './components/BaseMembersList';
 
 const styles = StyleSheet.create({
   headerContainer: {
@@ -53,9 +52,39 @@ const styles = StyleSheet.create({
   },
 });
 
+const CategoryDivider = ({ category, onPress }) => (
+  <View style={styles.categoryContainer}>
+    <Text style={styles.categoryText}>{category}</Text>
+    <TouchableOpacity
+      onPress={onPress}
+    >
+      <AntDesign name='plus' size={20} color={colors.white} />
+    </TouchableOpacity>
+  </View>
+);
+
 export default function BaseScreen({ currentBaseId, baseEntities, userEntities, goToChat }) {
   const navigation = useNavigation();
   const base = baseEntities[currentBaseId];
+  const mockChannels = [
+    {
+      text: 'General',
+      onPress: () => goToChat(),
+    },
+    {
+      text: 'random',
+      onPress: () => goToChat(),
+    },
+    {
+      text: 'Sphere Cube',
+      onPress: () => goToChat(),
+    },
+    {
+      text: 'BayBo',
+      onPress: () => goToChat(),
+    },
+  ];
+
   return (
     <BaseBottomTabNavigatorLayout>
       <View style={styles.headerContainer}>
@@ -70,40 +99,24 @@ export default function BaseScreen({ currentBaseId, baseEntities, userEntities, 
           </View>
         </View>
       </View>
-      <View style={styles.categoryContainer}>
-        <Text style={styles.categoryText}>Channels</Text>
-        <TouchableOpacity
-          onPress={() => navigation.navigate('ChatActions')}
-        >
-          <AntDesign name='plus' size={20} color={colors.white} />
-        </TouchableOpacity>
-      </View>
-      {mockChannels.map(channel => (
-        <LogoTextLinkItem
-          key={channel}
-          icon={<Feather style={styles.icon} name='hash' size={18} color={colors.white} />}
-          text={channel}
-          textStyle={sharedStyles.textLightGray16}
-          onPress={() => goToChat()}
-        />
-      ))}
-      <View style={styles.categoryContainer}>
-        <Text style={styles.categoryText}>Direct Messages</Text>
-        <TouchableOpacity
-          onPress={() => navigation.navigate('ChatActions')}
-        >
-          <AntDesign name='plus' size={20} color={colors.white} />
-        </TouchableOpacity>
-      </View>
-      {base.members.map(memberId => {
-        const member = userEntities[memberId];
-        return (
-          <TouchableOpacity style={sharedStyles.logoTextLinkContainer} onPress={() => goToChat()} key={member.id}>
-            <View style={{ ...sharedStyles.statusOnline, marginLeft: 5, marginRight: 15 }} />
-            <Text style={sharedStyles.textLightGray16}>{member.username}</Text>
-          </TouchableOpacity>
-        );
-      })}
+      <CategoryDivider
+        category="Channels"
+        onPress={() => navigation.navigate('ChatActions')}
+      />
+      <LogoTextLinks
+        buttons={mockChannels}
+        textStyle={sharedStyles.textLightGray16}
+        icon={<Feather style={styles.icon} name='hash' size={18} color={colors.white} />}
+      />
+      <CategoryDivider
+        category="Direct Messages"
+        onPress={() => navigation.navigate('ChatActions')}
+      />
+      <BaseMembersList
+        memberIds={base.members}
+        userEntities={userEntities}
+        goToChat={goToChat}
+      />
       <FloatingActionButton
         icon={<CreateMsgIcon height={20} />}
         onPress={() => navigation.navigate('ChatActions')}

@@ -7,6 +7,7 @@ import sharedStyles from '../../constants/sharedStyles';
 import colors from '../../constants/colors';
 import BaseBottomTabNavigatorLayout from '../../layouts/BaseBottomTabNavigatorLayout';
 import LogoTextLinks from '../../components/LogoTextLinks';
+import { UserPropType } from '../../utils/types';
 
 const styles = {
   container: {
@@ -62,7 +63,6 @@ export default function ProfileScreen({ myProfile }) {
       onPress: () => console.log('preferences'),
     },
   ];
-
   return (
     <BaseBottomTabNavigatorLayout style={styles.container}>
       <View style={styles.headerContainer}>
@@ -95,4 +95,6 @@ export default function ProfileScreen({ myProfile }) {
   );
 }
 
-ProfileScreen.propTypes = {};
+ProfileScreen.propTypes = {
+  myProfile: UserPropType,
+};

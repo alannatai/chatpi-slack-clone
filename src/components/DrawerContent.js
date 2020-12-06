@@ -2,8 +2,10 @@ import { View, TouchableOpacity, Text, Image } from 'react-native';
 import React from 'react';
 import { connect } from 'react-redux';
 import { Feather, AntDesign, FontAwesome } from '@expo/vector-icons';
-import { baseSelectors, baseActions } from '../store/base/ducks';
+import PropTypes from 'prop-types';
 
+import { BaseEntitiesPropType, BasesPropType } from '../utils/types';
+import { baseSelectors, baseActions } from '../store/base/ducks';
 import colors from '../constants/colors';
 import sharedStyles from '../constants/sharedStyles';
 import LogoTextLinks from './LogoTextLinks';
@@ -46,7 +48,7 @@ const styles = {
   },
 };
 
-function DrawerContent({ bases, baseEntities, changeCurrentBase, currentBaseId }) { 
+function DrawerContent({ bases, baseEntities, changeCurrentBase, currentBaseId }) {
   const selectedBase = baseEntities[currentBaseId];
   const mockDrawerButtons = [
     {
@@ -104,7 +106,10 @@ function DrawerContent({ bases, baseEntities, changeCurrentBase, currentBaseId }
       <View style={styles.selectedBaseSettingsContainer}>
         <View style={{ ...sharedStyles.borderBottomGray, paddingVertical: 0, paddingHorizontal: 20 }}>
           <Text style={{ ...sharedStyles.textWhiteBold20, marginBottom: 3, marginTop: 20 }}>{selectedBase.name}</Text>
-          <Text style={{ ...sharedStyles.textGray, marginBottom: 20 }}>{selectedBase.name}.touchbase.com</Text>
+          <Text style={{ ...sharedStyles.textGray, marginBottom: 20 }}>
+            {selectedBase.name}
+            .touchbase.com
+          </Text>
         </View>
         <LogoTextLinks
           paddingHorizontal
@@ -130,6 +135,13 @@ function DrawerContent({ bases, baseEntities, changeCurrentBase, currentBaseId }
     </View>
   );
 }
+
+DrawerContent.propTypes = {
+  currentBaseId: PropTypes.string,
+  baseEntities: BaseEntitiesPropType,
+  bases: BasesPropType,
+  changeCurrentBase: PropTypes.func,
+};
 
 const mapStateToProps = (state) => ({
   bases: baseSelectors.bases(state),

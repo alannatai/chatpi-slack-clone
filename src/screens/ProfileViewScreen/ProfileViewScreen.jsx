@@ -2,6 +2,7 @@ import { Text, View, Image } from 'react-native';
 import React from 'react';
 
 import sharedStyles from '../../constants/sharedStyles';
+import { UserPropType } from '../../utils/types';
 
 const styles = {
   image: {
@@ -19,4 +20,6 @@ export default function ProfileViewScreen({ myProfile }) {
   );
 }
 
-ProfileViewScreen.propTypes = {};
+ProfileViewScreen.propTypes = {
+  myProfile: UserPropType,
+};

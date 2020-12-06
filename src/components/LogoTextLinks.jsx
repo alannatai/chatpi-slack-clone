@@ -1,5 +1,5 @@
 import React from 'react';
-import { TouchableOpacity, Text, View } from 'react-native';
+import { TouchableOpacity, Text, View, ViewPropTypes } from 'react-native';
 import PropTypes from 'prop-types';
 import sharedStyles from '../constants/sharedStyles';
 import colors from '../constants/colors';
@@ -34,5 +34,14 @@ export default function LogoTextLinks({ buttons, textStyle, icon, divider, paddi
 }
 
 LogoTextLinks.propTypes = {
-  textStyle: PropTypes.object,
+  textStyle: PropTypes.objectOf(ViewPropTypes.style),
+  buttons: PropTypes.arrayOf(PropTypes.shape({
+    icon: PropTypes.element,
+    text: PropTypes.string,
+    onPress: PropTypes.func,
+  })),
+  icon: PropTypes.element,
+  divider: PropTypes.bool,
+  paddingVertical: PropTypes.bool,
+  paddingHorizontal: PropTypes.bool,
 };

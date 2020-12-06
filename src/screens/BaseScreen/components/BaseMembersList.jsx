@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 
 import sharedStyles from '../../../constants/sharedStyles';
+import { UserEntitiesPropType } from '../../../utils/types';
 
 export default function BaseMembersList({ memberIds, userEntities, goToChat }) {
   return (
@@ -22,4 +23,6 @@ export default function BaseMembersList({ memberIds, userEntities, goToChat }) {
 
 BaseMembersList.propTypes = {
   goToChat: PropTypes.func,
+  userEntities: UserEntitiesPropType,
+  memberIds: PropTypes.arrayOf(PropTypes.string),
 };

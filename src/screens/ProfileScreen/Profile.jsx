@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { NavigationPropType } from '../../utils/types';
+import { NavigationPropType, UserPropType } from '../../utils/types';
 import ProfileScreen from './ProfileScreen';
 import { cachedProfilesSelectors } from '../../store/cachedProfiles/ducks';
 
@@ -17,6 +17,7 @@ function ProfileScreenContainer(props) {
 
 ProfileScreenContainer.propTypes = {
   navigation: NavigationPropType,
+  myProfile: UserPropType,
 };
 
 const mapStateToProps = (state) => ({

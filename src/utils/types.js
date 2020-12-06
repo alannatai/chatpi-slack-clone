@@ -8,28 +8,34 @@ export const MessagePropType = PropTypes.shape({
 });
 
 export const UserPropType = PropTypes.shape({
-  uuid: PropTypes.string,
-  createdAt: PropTypes.number,
-  updatedAt: PropTypes.number,
+  id: PropTypes.string,
+  createdAt: PropTypes.string,
+  updatedAt: PropTypes.string,
   authKey: PropTypes.string,
   username: PropTypes.string,
-  email: 'd0nkers',
+  email: PropTypes.string,
   score: PropTypes.number,
   firstName: PropTypes.string,
   lastName: PropTypes.string,
   imageUrl: PropTypes.string,
 });
 
+export const UserEntitiesPropType = PropTypes.objectOf(UserPropType);
+
+export const BasesPropType = PropTypes.arrayOf(PropTypes.string);
+
 export const BasePropType = PropTypes.shape({
-  uuid: PropTypes.string,
-  createdAt: PropTypes.number,
-  updatedAt: PropTypes.number,
+  id: PropTypes.string,
+  createdAt: PropTypes.string,
+  updatedAt: PropTypes.string,
   name: PropTypes.string,
   score: 0.0,
   imageUrl: PropTypes.string,
   members: PropTypes.arrayOf(PropTypes.string),
   chats: PropTypes.arrayOf(PropTypes.string),
 });
+
+export const BaseEntitiesPropType = PropTypes.objectOf(BasePropType);
 
 export const NavigationPropType = PropTypes.object; // eslint-ignore-line
 

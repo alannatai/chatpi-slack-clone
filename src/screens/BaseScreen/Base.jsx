@@ -1,8 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 
 import BaseScreen from './BaseScreen';
-import { NavigationPropType } from '../../utils/types';
+import { NavigationPropType, BaseEntitiesPropType, UserEntitiesPropType } from '../../utils/types';
 import { baseSelectors } from '../../store/base/ducks';
 
 function BaseScreenContainer(props) {
@@ -21,6 +22,9 @@ function BaseScreenContainer(props) {
 
 BaseScreenContainer.propTypes = {
   navigation: NavigationPropType,
+  currentBaseId: PropTypes.string,
+  baseEntities: BaseEntitiesPropType,
+  userEntities: UserEntitiesPropType,
 };
 
 const mapStateToProps = (state) => ({

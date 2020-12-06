@@ -1,8 +1,8 @@
 import { StyleSheet, Text, TouchableOpacity, View, Image } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import PropTypes from 'prop-types';
 import React from 'react';
 import { Feather, AntDesign } from '@expo/vector-icons';
+import PropTypes from 'prop-types';
 
 import BaseBottomTabNavigatorLayout from '../../layouts/BaseBottomTabNavigatorLayout';
 import colors from '../../constants/colors';
@@ -11,6 +11,7 @@ import FloatingActionButton from '../../components/FloatingActionButton';
 import CreateMsgIcon from '../../assets/icons/CreateMsgIcon';
 import LogoTextLinks from '../../components/LogoTextLinks';
 import BaseMembersList from './components/BaseMembersList';
+import { BaseEntitiesPropType, UserEntitiesPropType } from '../../utils/types';
 
 const styles = StyleSheet.create({
   headerContainer: {
@@ -127,4 +128,12 @@ export default function BaseScreen({ currentBaseId, baseEntities, userEntities, 
 
 BaseScreen.propTypes = {
   goToChat: PropTypes.func,
+  currentBaseId: PropTypes.string,
+  baseEntities: BaseEntitiesPropType,
+  userEntities: UserEntitiesPropType,
+};
+
+CategoryDivider.propTypes = {
+  onPress: PropTypes.func,
+  category: PropTypes.string,
 };
